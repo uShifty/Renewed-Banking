@@ -1,6 +1,8 @@
 <script lang="ts">
     import { accounts, activeAccount, popupDetails, atm, translations } from "../../store/stores";
     import { formatMoney } from "../../utils/misc";
+    import { fade } from 'svelte/transition';
+
     export let account:any;
 
     function handleAccountClick(id: any) {
@@ -32,13 +34,15 @@
         <span>{$translations.balance}</span>
     </div>
 
-    <div class="btns-group">
+    <div class:animate="{account.id === $activeAccount}" class="btns-group">
         {#if !account.isFrozen}
-            {#if !isAtm}
-                <button class="btn btn-green" on:click={() => handleButton(account.id, "deposit")}>{$translations.deposit_but}</button>
+            {#if account.id === $activeAccount}
+                {#if !isAtm}
+                    <button transition:fade class="btn btn-green" on:click={() => handleButton(account.id, "deposit")}>{$translations.deposit_but}</button>
+                {/if}
+                <button transition:fade class="btn btn-orange" on:click={() => handleButton(account.id, "withdraw")}>{$translations.withdraw_but}</button>
+                <button transition:fade class="btn btn-grey" on:click={() => handleButton(account.id, "transfer")}>{$translations.transfer_but}</button>
             {/if}
-            <button class="btn btn-orange" on:click={() => handleButton(account.id, "withdraw")}>{$translations.withdraw_but}</button>
-            <button class="btn btn-grey" on:click={() => handleButton(account.id, "transfer")}>{$translations.transfer_but}</button>
         {:else}
             {$translations.frozen}
         {/if}
@@ -79,12 +83,17 @@
     }
 
     /* make first btn in btn-group take up the whole first row */
-  .btns-group > :first-child {
-    grid-column: 1 / -1;
-  }
-  .btns-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 0.5rem;
-  }
+    .btns-group > :first-child {
+        grid-column: 1 / -1;
+    }
+    .btns-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0.5rem;
+        opacity: 0;
+        transition: opacity 1.5s;
+    }
+    .btns-group.animate {
+        opacity: 1;
+    }
 </style>

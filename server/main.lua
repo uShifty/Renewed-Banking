@@ -35,10 +35,9 @@ function UpdatePlayerAccount(source)
         charId = cid,
         name = GetCharacterName(Player),
         isFrozen = 0,
-        transactions = db.getTransactions(cid),
-        accounts = db.selectCharacterGroups(cid)
+        transactions = db.getTransactions(cid) or {},
+        accounts = db.selectCharacterGroups(cid) or {}
     }
-
     return cachedPlayers[source]
 end
 
@@ -60,11 +59,14 @@ local function getBankData(source)
         transactions = cachedPlayers[source].transactions,
     }
 
-    for i = 1, #cachedPlayers[source].accounts do
-        local v = cachedPlayers[source].accounts[i]
-        bankData[#bankData+1] = cachedAccounts[v.account]
+    if type(cachedPlayers[source].accounts) == 'table' then
+        for i = 1, #cachedPlayers[source].accounts do
+            local v = cachedPlayers[source].accounts[i]
+            bankData[#bankData+1] = cachedAccounts[v.account]
+        end
+    else
+        bankData[#bankData+1] = cachedAccounts[cachedPlayers[source].accounts]
     end
-
     return bankData
 end
 
@@ -185,7 +187,7 @@ lib.callback.register('Renewed-Banking:server:deposit', function(source, data)
             AddMoney(Player, amount, 'bank', data.comment)
         end
 
-        return getBankData(source)
+        return {trans = transaction, cash = Player.PlayerData.money.cash, bank = Player.PlayerData.money.bank}
     else
         TriggerClientEvent('Renewed-Banking:client:sendNotification', source, locale("not_enough_money"))
         return false
@@ -250,7 +252,7 @@ lib.callback.register('Renewed-Banking:server:withdraw', function(source, data)
     end
 
 
-    return getBankData(source)
+    return {trans = transaction, cash = Player.PlayerData.money.cash, bank = Player.PlayerData.money.bank}
 end)
 
 -- Im not even gonna attempt to wrap my head around this rn...
@@ -264,13 +266,14 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
 
     local name = GetCharacterName(Player)
     if not data.comment or data.comment == "" then data.comment = locale("comp_transaction", name, "transfered", amount) else sanitizeMessage(data.comment) end
+    local transaction
     if cachedAccounts[data.fromAccount] then
         if cachedAccounts[data.stateid] then
             local canTransfer = RemoveAccountMoney(data.fromAccount, amount)
             if canTransfer then
                 AddAccountMoney(data.stateid, amount)
                 local title = ("%s / %s"):format(cachedAccounts[data.fromAccount].name, data.fromAccount)
-                local transaction = handleTransaction(data.fromAccount, title, amount, data.comment, cachedAccounts[data.fromAccount].name, cachedAccounts[data.stateid].name, "withdraw")
+                transaction = handleTransaction(data.fromAccount, title, amount, data.comment, cachedAccounts[data.fromAccount].name, cachedAccounts[data.stateid].name, "withdraw")
                 handleTransaction(data.stateid, title, amount, data.comment, cachedAccounts[data.fromAccount].name, cachedAccounts[data.stateid].name, "deposit", transaction.trans_id)
             else
                 TriggerClientEvent('Renewed-Banking:client:sendNotification', source, locale("not_enough_money"))
@@ -286,7 +289,7 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
             if canTransfer then
                 AddMoney(Player2, amount, 'bank', data.comment)
                 local name = GetCharacterName(Player2)
-                local transaction = handleTransaction(data.fromAccount, ("%s / %s"):format(cachedAccounts[data.fromAccount].name, data.fromAccount), amount, data.comment, cachedAccounts[data.fromAccount].name, name, "withdraw")
+                transaction = handleTransaction(data.fromAccount, ("%s / %s"):format(cachedAccounts[data.fromAccount].name, data.fromAccount), amount, data.comment, cachedAccounts[data.fromAccount].name, name, "withdraw")
                 handleTransaction(data.stateid, ("%s / %s"):format(cachedAccounts[data.fromAccount].name, data.fromAccount), amount, data.comment, cachedAccounts[data.fromAccount].name, name, "deposit", transaction.trans_id)
             else
                 TriggerClientEvent('Renewed-Banking:client:sendNotification', source, locale("not_enough_money"))
@@ -298,7 +301,7 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
         if cachedAccounts[data.stateid] then
             if funds.bank >= amount and RemoveMoney(Player, amount, 'bank', data.comment) then
                 AddAccountMoney(data.stateid, amount)
-                local transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, name, cachedAccounts[data.stateid].name, "withdraw")
+                transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, name, cachedAccounts[data.stateid].name, "withdraw")
                 handleTransaction(data.stateid, locale("personal_acc") .. data.fromAccount, amount, data.comment, name, cachedAccounts[data.stateid].name, "deposit", transaction.trans_id)
             else
                 TriggerClientEvent('Renewed-Banking:client:sendNotification', source, locale("not_enough_money"))
@@ -314,7 +317,7 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
             if funds.bank >= amount and RemoveMoney(Player, amount, 'bank', data.comment) then
                 AddMoney(Player2, amount, 'bank', data.comment)
                 local name2 = GetCharacterName(Player2)
-                local transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, name, name2, "withdraw")
+                transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, name, name2, "withdraw")
                 handleTransaction(data.stateid, locale("personal_acc") .. data.fromAccount, amount, data.comment, name, name2, "deposit", transaction.trans_id)
             else
                 TriggerClientEvent('Renewed-Banking:client:sendNotification', source, locale("not_enough_money"))
@@ -323,7 +326,7 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
         end
     end
 
-    return getBankData(source)
+    return {trans = transaction, cash = Player.PlayerData.money.cash, bank = Player.PlayerData.money.bank}
 end)
 
 RegisterNetEvent('Renewed-Banking:server:createNewAccount', function(accountid)
@@ -343,13 +346,12 @@ RegisterNetEvent('Renewed-Banking:server:createNewAccount', function(accountid)
 
     }
     account.accounts[#account.accounts+1] = {
-        account = accountId,
+        account = accountid,
         withdraw = true,
         deposit = true
     }
-    MySQL.insert("INSERT INTO bank_accounts_new (id, amount, transactions, auth, isFrozen, creator) VALUES (?, ?, ?, ?, ?, ?) ",{
-        accountid, cachedAccounts[accountid].amount, json.encode(cachedAccounts[accountid].transactions), json.encode({cid}), cachedAccounts[accountid].frozen, cid
-    })
+    db.addAccount(accountid, cachedAccounts[accountid].amount, cachedAccounts[accountid].frozen, cid)
+    db.addAccountAuth(cid, accountid)
 end)
 
 lib.callback.register('Renewed-Banking:server:getPlayerAccounts', function(source)
@@ -455,15 +457,23 @@ RegisterNetEvent('Renewed-Banking:server:deleteAccount', function(data)
     local Player = GetPlayerObject(source)
     local cid = GetIdentifier(Player)
 
+    if cachedAccounts[account].creator ~= cid then return end
     cachedAccounts[account] = nil
 
-    for k=1, #cachedPlayers[cid].accounts do
-        if cachedPlayers[cid].accounts[k].account == account then
-            cachedPlayers[cid].accounts[k] = nil
+    if type(cachedPlayers[source].accounts) == 'table' then
+        for i = 1, #cachedPlayers[source].accounts do
+            if cachedPlayers[source].accounts[i].account == account then
+                table.remove(cachedPlayers[source].accounts, i)
+            end
+        end
+    else
+        if cachedPlayers[source].accounts == account then
+            cachedPlayers[source].accounts = {}
         end
     end
 
-    MySQL.update("DELETE FROM `bank_accounts_new` WHERE id=:id", { id = account })
+    db.nukeAccount(account)
+    db.nukeAccountMembers(account)
 end)
 
 local find = string.find
@@ -481,8 +491,17 @@ local function split(str, delimiter)
     return result
 end
 
+local function cloneTable(source)
+    if type(source) ~= "table" then return source end
 
---[[local function updateAccountName(account, newName, src)
+    local clone = {}
+    for key, value in pairs(source) do
+        clone[key] = cloneTable(value)
+    end
+    return clone
+end
+
+local function updateAccountName(account, newName, src)
     if not account or not newName then return false end
     if not cachedAccounts[account] then
         local getTranslation = locale("invalid_account", account)
@@ -506,27 +525,33 @@ end
         end
     end
 
-    cachedAccounts[newName] = json.decode(json.encode(cachedAccounts[account]))
+    cachedAccounts[newName] = cloneTable(cachedAccounts[account])
     cachedAccounts[newName].id = newName
     cachedAccounts[newName].name = newName
     cachedAccounts[account] = nil
     for _, id in ipairs(GetPlayers()) do
+        id = tonumber(id)
         local Player2 = GetPlayerObject(id)
         if not Player2 then goto Skip end
         local cid = GetIdentifier(Player2)
-        if #cachedPlayers[cid].accounts >= 1 then
-            for k=1, #cachedPlayers[cid].accounts do
-                if cachedPlayers[cid].accounts[k] == account then
-                    table.remove(cachedPlayers[cid].accounts, k)
-                    cachedPlayers[cid].accounts[#cachedPlayers[cid].accounts+1] = newName
+        if type(cachedPlayers[id].accounts) == 'table' then
+            for i = 1, #cachedPlayers[id].accounts do
+                if cachedPlayers[id].accounts[i].account == account then
+                    table.remove(cachedPlayers[id].accounts, i)
+                    cachedPlayers[id].accounts[#cachedPlayers[id].accounts+1] = newName
                 end
+            end
+        else
+            if cachedPlayers[id].accounts == account then
+                cachedPlayers[id].accounts = newName
             end
         end
         ::Skip::
     end
-    MySQL.update('UPDATE bank_accounts_new SET id = ? WHERE id = ?',{newName, account})
+    db.updateAccountName(newName, account)
+    db.updateAccountMembers(newName, account)
     return true
-end]]
+end
 
 RegisterNetEvent('Renewed-Banking:server:changeAccountName', function(account, newName)
     updateAccountName(account, newName, source)
@@ -540,49 +565,40 @@ local function addAccountMember(account, member)
     local Player2 = getPlayerData(false, member)
     if not Player2 then return end
 
-    local targetCID = GetIdentifier(Player2)
-    if cachedPlayers[targetCID] then
-        cachedPlayers[targetCID].accounts[#cachedPlayers[targetCID].accounts+1] = account
+    local source = Player.source
+    if cachedPlayers[source] then
+        if type(cachedPlayers[source].accounts) == 'table' then
+            cachedPlayers[source].accounts[#cachedPlayers[source].accounts+1] = account
+        else
+            cachedPlayers[source].accounts[1] = cachedPlayers[source].accounts
+            cachedPlayers[source].accounts[2] = account
+        end
     end
-
-    local auth = {}
-    for k, _ in pairs(cachedAccounts[account].auth) do auth[#auth+1] = k end
-    auth[#auth+1] = targetCID
-    cachedAccounts[account].auth[targetCID] = true
-    MySQL.update('UPDATE bank_accounts_new SET auth = ? WHERE id = ?',{json.encode(auth), account})
-
+    db.addAccountAuth(cachedPlayers[source].charId, account)
 end exports("addAccountMember", addAccountMember)
 
 local function removeAccountMember(account, member)
     local Player2 = getPlayerData(false, member)
 
     if not Player2 then return end
+    local source = Player2.source
     if not cachedAccounts[account] then print(locale("invalid_account", account)) return end
 
-    local targetCID = GetIdentifier(Player2)
 
-    local tmp = {}
-    for k in pairs(cachedAccounts[account].auth) do
-        if targetCID ~= k then
-            tmp[#tmp+1] = k
-        end
-    end
-
-    if cachedPlayers[targetCID] then
-        local newAccount = {}
-        if #cachedPlayers[targetCID].accounts >= 1 then
-            for k=1, #cachedPlayers[targetCID].accounts do
-                if cachedPlayers[targetCID].accounts[k] ~= account then
-                    newAccount[#newAccount+1] = cachedPlayers[targetCID].accounts[k]
+    if cachedPlayers[source] then
+        if type(cachedPlayers[source].accounts) == 'table' then
+            for k=1, #cachedPlayers[source].accounts do
+                if cachedPlayers[source].accounts[k] == account then
+                    table.remove(cachedPlayers[source].accounts, k)
                 end
             end
+        else
+            if cachedPlayers[source].accounts and cachedPlayers[source].accounts == account then
+                cachedPlayers[source].accounts = {}
+            end
         end
-        cachedPlayers[targetCID].accounts = newAccount
     end
-
-    cachedAccounts[account].auth[targetCID] = nil
-
-    MySQL.update('UPDATE bank_accounts_new SET auth = ? WHERE id = ?',{json.encode(tmp), account})
+    db.removeAccountMembers(cachedPlayers[source].charId, account)
 end
 exports("removeAccountMember", removeAccountMember)
 

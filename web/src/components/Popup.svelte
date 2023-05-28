@@ -18,7 +18,18 @@
         fetchNui($popupDetails.actionType, {fromAccount: $popupDetails.account.id, amount: amount, comment: comment, stateid: stateid}).then(retData => {
             setTimeout(() => {
                 if (retData !== false){
-                    accounts.set(retData);
+                    accounts.update(arr => {
+                        if (arr.length > 0) {
+                            arr[0].cash = retData.cash;
+                            arr[0].amount = retData.bank;
+                            if (!Array.isArray(arr[0].transactions)) {
+                                arr[0].transactions = []; // Initialize as an empty array
+                            }
+                            arr[0].transactions = [retData.trans, ...arr[0].transactions];
+                        }
+                        return arr;
+                    });
+
                 }
                 loading.set(false);
             }, 1000);

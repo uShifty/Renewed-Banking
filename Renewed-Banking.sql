@@ -19,11 +19,12 @@ CREATE TABLE `bank_transactions` (
 	`receiver` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`issuer` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`time` INT(11) UNSIGNED ZEROFILL NULL DEFAULT NULL,
+	`date` timestamp NULL DEFAULT current_timestamp(),
 	PRIMARY KEY (`id`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=23;
+AUTO_INCREMENT=1;
 
 CREATE TABLE `player_accounts` (
 	`charid` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
