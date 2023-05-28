@@ -19,6 +19,14 @@
 </aside>
 
 <style>
+    .heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 1rem;
+        margin-bottom: 10px;
+        width: 100%;
+    }
     aside {
         flex: 0 0 25%;
         padding-left: 1rem;

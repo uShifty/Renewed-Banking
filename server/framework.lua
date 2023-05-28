@@ -102,7 +102,7 @@ end
 
 function RemoveMoney(Player, Amount, Type, comment)
     if Framework == 'qb' then
-        local currentAmount = Player.Functions.GetMoney(Type)
+        local currentAmount = Player.PlayerData.money[Type]
         if currentAmount >= Amount then
             Player.Functions.RemoveMoney(Type, Amount, comment)
             return true

@@ -10,7 +10,7 @@ local function viewAccount(account)
                 title = locale('manage_members'),
                 icon = 'users-gear',
                 metadata = {locale('manage_members_txt')},
-                onSelect = function()
+                onSelect = function(data)
                     local members = lib.callback.await('Renewed-Banking:server:getMembers', false, account)
 
                     if not members then return end
