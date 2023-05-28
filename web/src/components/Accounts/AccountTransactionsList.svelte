@@ -29,14 +29,15 @@
 </script>
 
 <section class="transactions-container">
-    <h3 class="heading">
-        <span>{$translations.transactions}</span>
-
-        <div>
-            <img src="./img/bank.png" alt="bang icon" />
-            <span>{$translations.bank_name}</span>
+    <div class="heading">
+        <div class="heading-row">
+            <span class="left-span bigger-bold">{$translations.transactions}</span>
+            <div class="right-container">
+                <img src="./img/bank.png" alt="bank icon" />
+                <span class="right-span bigger-bold">{$translations.bank_name}</span>
+            </div>
         </div>
-    </h3>
+    </div>
 
     <input type="text" class="transactions-search" placeholder={$translations.trans_search} bind:value={transSearch}>
     <section class="scroller">
@@ -62,24 +63,38 @@
 </section>
 
 <style>
-    .transactions-container {
-        flex: 1 1 75%;
-        transform: translateY(-0.6rem);
-        padding: 0.5rem;
-    }
-
-    .heading {
+     .heading {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        height: 1rem;
+        margin-bottom: 10px;
+        width: 100%;
     }
 
-    .heading div {
+    .heading-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .transactions-container {
+        padding: 0.5rem;
+        flex-grow: 1;
+    }
+    .right-container {
         display: flex;
         align-items: center;
     }
 
+    .left-span {
+        margin-right: auto;
+    }
+    .left-span, .right-span {
+        font-size: 2REM;
+        font-weight: bold;
+    }
     .heading img {
-        width: 3rem;
+        width: 1.75rem;
         margin-right: 1rem;
     }
 
