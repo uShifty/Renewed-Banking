@@ -193,8 +193,7 @@ end
 --Misc Framework Events
 
 AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
-    local cid = Player.PlayerData.citizenid
-    UpdatePlayerAccount(cid)
+    UpdatePlayerAccount(Player.PlayerData.source)
 end)
 
 RegisterNetEvent('esx:onPlayerDeath')
@@ -202,14 +201,12 @@ AddEventHandler('esx:onPlayerDeath', function()
 	deadPlayers[source] = true
 end)
 
-RegisterNetEvent('esx:onPlayerSpawn')
-AddEventHandler('esx:onPlayerSpawn', function()
-    local Player = GetPlayerObject(source)
-    local cid = GetIdentifier(Player)
-	if deadPlayers[source] then
+AddEventHandler('esx:playerLoaded', function(source)
+    UpdatePlayerAccount(source)
+
+    if deadPlayers[source] then
 		deadPlayers[source] = nil
 	end
-    UpdatePlayerAccount(cid)
 end)
 
 AddEventHandler('esx:playerDropped', function(playerId, reason)
@@ -222,12 +219,8 @@ end)
 AddEventHandler('onResourceStart', function(resourceName)
     Wait(250)
     if resourceName == GetCurrentResourceName() then
-        for _, v in ipairs(GetPlayers()) do
-            local Player = GetPlayerObject(v)
-            if Player then
-                local cid = GetIdentifier(Player)
-                UpdatePlayerAccount(cid)
-            end
+        for _, sourceId in ipairs(GetPlayers()) do
+            UpdatePlayerAccount(sourceId)
         end
     end
 end)

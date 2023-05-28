@@ -105,6 +105,6 @@
         padding: 1.4rem;
         margin-bottom: 1rem;
         background-color: #2a2b33;
-        color: #fff; 
+        color: #fff;
     }
 </style>
