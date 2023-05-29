@@ -44,34 +44,35 @@ function account.addPlayerAccount(source)
 
     if not id then return end
 
-    local money = Framework.getMoney(source, nil, true)
-
     account[source] = {
         id = id,
         isPlayer = true,
         type = locale("personal"),
         name = Framework.getCharName(source),
         frozen = false,
-        cash = money.cash,
-        amount = money.bank,
+        cash = 0,
+        amount = 0,
         transactions = db.getTransactions(id) or {}
     }
 end
 
 function account.addMoney(bank, amount, comment)
-    local left = account[bank]
+    local left = account(bank)
 
-    if not left then return end
-
-    left.amount += amount
+    if not left then print("NO GOOD") return end
 
     if left.isPlayer then
-        Framework.addMoney(bank, amount, 'bank', comment)
+        local success = Framework.addMoney(bank, amount, 'bank', comment)
+
+        if not success then return false end
     else
+        left.amount += amount
         db.setBankBalance(bank, left.amount)
+
+        return {amount = left.amount, added = amount}
     end
 
-    return { amount = left.amount }
+    return true
 end
 
 function account.removeMoney(bank, amount, comment)
@@ -79,17 +80,21 @@ function account.removeMoney(bank, amount, comment)
 
     if not left then return end
 
-    if left.amount < amount then return end
-
-    left.amount -= amount
 
     if left.isPlayer then
-        Framework.removeMoney(bank, amount, 'bank', comment)
+        local success = Framework.removeMoney(bank, amount, 'bank', comment)
+
+        if not success then return false end
     else
+        if left.amount < amount then return end
+
+        left.amount -= amount
         db.setBankBalance(bank, left.amount)
+
+        return {amount = left.amount, added = amount}
     end
 
-    return { amount = left.amount }
+    return true
 end
 
 function account.removeCash(bank, amount, comment)
@@ -97,33 +102,9 @@ function account.removeCash(bank, amount, comment)
 
     if not left or not left.isPlayer then return end
 
-    if left.cash < amount then return end
 
-    left.cash -= amount
-
-    Framework.removeMoney(bank, left.cash, 'cash', comment)
-
-    return { amount = left.cash }
+    return Framework.removeMoney(bank, amount, 'cash', comment)
 end
 
-
-AddEventHandler('Renewed-Lib:server:MoneyChange', function(source, mType, amount, changeType)
-    print("ok")
-    if mType ~= 'bank' and mType ~= 'cash' then return end
-
-    local left = account(source)
-
-    if not left then return end
-
-    local setMoney = (changeType == 'set' and amount) or (changeType == 'add' and amount + amount) or amount - amount
-
-    print(setMoney, mType)
-
-    if mType == 'bank' then
-        left.amount = setMoney
-    else
-        left.cash = setMoney
-    end
-end)
 
 return account

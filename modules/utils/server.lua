@@ -15,4 +15,8 @@ function Utils.sanitizeMessage(message)
     return message
 end
 
+function Utils.sendNotif(source, label)
+    TriggerClientEvent('Renewed-Banking:client:sendNotification', source, label)
+end
+
 return Utils

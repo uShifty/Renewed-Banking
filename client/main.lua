@@ -2,6 +2,8 @@ local isVisible = false
 local progressBar = Config.progressbar == 'circle' and lib.progressCircle or lib.progressBar
 PlayerPed = cache.ped
 
+local Framework2 = require 'client.newFramework'
+
 lib.onCache('ped', function(newPed)
 	PlayerPed = newPed
 end)
@@ -14,21 +16,27 @@ end
 local function openBankUI(isAtm)
     SendNUIMessage({action = 'setLoading', status = true})
     nuiHandler(true)
-    lib.callback('renewed-banking:server:initalizeBanking', false, function(accounts)
-        if not accounts then
-            nuiHandler(false)
-            lib.notify({title = locale('bank_name'), description = locale('loading_failed'), type = 'error'})
-            return
-        end
-        SetTimeout(1000, function()
-            SendNUIMessage({
-                action = 'setVisible',
-                status = isVisible,
-                accounts = accounts,
-                loading = false,
-                atm = isAtm
-            })
-        end)
+
+    local accounts = lib.callback.await('renewed-banking:server:initalizeBanking', false)
+
+    if not accounts then
+        nuiHandler(false)
+        lib.notify({title = locale('bank_name'), description = locale('loading_failed'), type = 'error'})
+        return
+    end
+
+    local playerMoney = Framework2.getMoney()
+
+    accounts[1].cash, accounts[1].amount = playerMoney[1], playerMoney[2]
+
+    SetTimeout(1000, function()
+        SendNUIMessage({
+            action = 'setVisible',
+            status = isVisible,
+            accounts = accounts,
+            loading = false,
+            atm = isAtm
+        })
     end)
 end
 
@@ -71,6 +79,17 @@ CreateThread(function ()
     for k=1, #bankActions do
         RegisterNUICallback(bankActions[k], function(data, cb)
             local newTransaction = lib.callback.await('Renewed-Banking:server:'..bankActions[k], false, data)
+
+            if not newTransaction then return cb(false) end
+
+            local playerMoney = Framework2.getMoney()
+
+            newTransaction.cash = playerMoney[1]
+
+            if not newTransaction.bank then
+                newTransaction.bank = playerMoney[2]
+            end
+
             cb(newTransaction)
         end)
     end

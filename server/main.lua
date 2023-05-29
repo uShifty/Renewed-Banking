@@ -1,10 +1,21 @@
 local cachedAccounts = {}
 local cachedPlayers = {}
 
+
+
+
+
+
+
+
+
+
+
+
+-- rewritten code --
 local db = require('modules.db')
 local tempAccount = require('server.accounts')
 local Utils = require 'modules.utils.server'
-
 local table = lib.table
 
 
@@ -43,7 +54,6 @@ function UpdatePlayerAccount(source)
     playerAccess[source] = access
 end
 
-
 lib.callback.register('renewed-banking:server:initalizeBanking', function(source)
     return playerAccess[source]
 end)
@@ -76,6 +86,65 @@ local function handleTransaction(account, title, amount, message, issuer, receiv
 
     return transaction
 end exports("handleTransaction", handleTransaction)
+
+lib.callback.register('Renewed-Banking:server:deposit', function(source, data)
+    local amount = tonumber(data.amount)
+
+    if not amount or amount < 1 then
+        Notify(source, {title = locale("bank_name"), description = locale("invalid_amount", "deposit"), type = "error"})
+        return false
+    end
+
+    local left = tempAccount(source)
+
+    if not left then return end
+
+    local secondAccount = left.id == data.fromAccount and source or data.fromAccount
+
+    local right = secondAccount ~= source and tempAccount(secondAccount) or left
+
+    if secondAccount ~= source and right == left then return end
+
+    data.comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", left.name, "deposited", amount)
+
+    local success = tempAccount.removeCash(source, amount, data.comment)
+
+    if not success then Utils.sendNotif(source, locale("not_enough_money")) print("HERE MAYBE?") return end
+
+    local transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, left.name, right.id, "deposit")
+
+    local newBank = tempAccount.addMoney(secondAccount, amount, data.comment)
+
+
+    -- So this returnData needs to return the NEW BANK BALANCE of the ACCOUNT that you just deposited into
+    local returnData = type(newBank) == 'table' and {trans = transaction, bank = newBank.amount} or {trans = transaction}
+
+    return returnData
+end)
+
+-- no more rewritten code --
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function GetAccountMoney(account)
     if not cachedAccounts[account] then
@@ -110,40 +179,6 @@ local function getPlayerData(source, id)
     end
     return Player
 end
-
-lib.callback.register('Renewed-Banking:server:deposit', function(source, data)
-    local left = tempAccount(source)
-
-    if not left then print("HERE?") return end
-
-    local secondAccount = left.id == data.fromAccount and source or data.fromAccount
-
-    if secondAccount ~= source then
-        if not tempAccount(secondAccount) then print("MAYBE HERE?") return end
-    end
-
-    local amount = tonumber(data.amount)
-
-    if not amount or amount < 1 then
-        Notify(source, {title = locale("bank_name"), description = locale("invalid_amount", "deposit"), type = "error"})
-        return false
-    end
-
-    if not data.comment or data.comment == "" then data.comment = locale("comp_transaction", left.name, "deposited", amount) else Utils.sanitizeMessage(data.comment) end
-
-    local newCash = tempAccount.removeCash(source, amount, data.comment)
-
-    if not newCash then TriggerClientEvent('Renewed-Banking:client:sendNotification', source, locale("not_enough_money")) print("HERE MAYBE?") return end
-
-    local transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, left.name, Player2, "deposit")
-
-    local newBank = tempAccount.addMoney(secondAccount, amount, data.comment)
-
-
-    print(newCash.amount, newBank.amount)
-
-    return {trans = transaction, cash = newCash.amount, bank = newBank.amount}
-end)
 
 function RemoveAccountMoney(account, amount)
     local accountCached = cachedAccounts[account]
