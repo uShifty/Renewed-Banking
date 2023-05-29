@@ -57,7 +57,7 @@ function db.addTransaction(account, trans_id, title, message, amount, receiver, 
     MySQL.prepare(INSERT_TRANSACTION, {account, trans_id, title, message, amount, receiver, trans_type, issuer, time})
 end
 
-local GET_TRANSACTIONS = 'SELECT * FROM bank_transactions WHERE `account` = ? ORDER BY date DESC'
+local GET_TRANSACTIONS = 'SELECT * FROM bank_transactions WHERE `account` = ? AND date < (NOW() - INTERVAL 1 WEEK) ORDER BY date DESC'
 function db.getTransactions(account)
     return MySQL.prepare.await(GET_TRANSACTIONS, {account})
 end
