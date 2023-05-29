@@ -115,14 +115,10 @@ AddEventHandler('Renewed-Lib:server:MoneyChange', function(source, mType, amount
 
     if not left then return end
 
-    local setMoney = (changeType == 'set' and amount) or (changeType == 'add' and amount + amount) or amount - amount
-
-    print(setMoney, mType)
-
     if mType == 'bank' then
-        left.amount = setMoney
+        left.amount = (changeType == 'set' and amount) or (changeType == 'add' and left.amount + amount) or left.amount - amount
     else
-        left.cash = setMoney
+        left.cash = (changeType == 'set' and amount) or (changeType == 'add' and left.cash + amount) or left.cash - amount
     end
 end)
 
