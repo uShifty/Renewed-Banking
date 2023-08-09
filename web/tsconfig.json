@@ -4,6 +4,7 @@
   "compilerOptions": {
     "strict": true,
     "allowJs": true,
+    "noUnusedLocals": false,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true
   },

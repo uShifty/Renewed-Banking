@@ -2,10 +2,11 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'Renewed Banking'
-Author "uShifty#1733"
-version '2.0.0'
+Author "RenewedScripts"
+version '2.1.0'
 
 lua54 'yes'
+use_experimental_fxv2_oal 'yes'
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -13,9 +14,7 @@ shared_scripts {
 }
 
 client_scripts {
-    'client/framework.lua',
     'client/main.lua',
-    'client/menus.lua',
 }
 
 server_scripts {
@@ -25,11 +24,18 @@ server_scripts {
 }
 
 ui_page 'web/public/index.html'
-
 files {
   'web/public/index.html',
   'web/public/**/*',
   'locales/*.json'
+}
+
+dependencies {
+    '/server:5848',
+    '/onesync',
+    'oxmysql',
+    'ox_lib',
+    'Renewed-Lib'
 }
 
 provide 'qb-management'

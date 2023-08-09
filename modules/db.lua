@@ -42,12 +42,17 @@ function db.nukeAccountMembers(account)
     MySQL.prepare(NUKE_ACCOUNTMEMBERS, {account})
 end
 
+local ADD_MEMBNER = 'INSERT INTO player_accounts WHERE `charid` = ? AND `account` = ?'
+function db.addAccountMembers(charid, account)
+    MySQL.prepare(ADD_MEMBNER, {charid, account})
+end
+
 local REMOVE_MEMBNER = 'DELETE FROM player_accounts WHERE `charid` = ? AND `account` = ?'
 function db.removeAccountMembers(charid, account)
     MySQL.prepare(REMOVE_MEMBNER, {charid, account})
 end
 
-local SELECT_MEMBERS = 'SELECT `charid`, `name` FROM player_accounts WHERE `account` = ?'
+local SELECT_MEMBERS = 'SELECT `charid` FROM player_accounts WHERE `account` = ?'
 function db.selectMembers(account)
     return MySQL.prepare.await(SELECT_MEMBERS, {account})
 end
@@ -57,9 +62,15 @@ function db.addTransaction(account, trans_id, title, message, amount, receiver, 
     MySQL.prepare(INSERT_TRANSACTION, {account, trans_id, title, message, amount, receiver, trans_type, issuer, time})
 end
 
-local GET_TRANSACTIONS = 'SELECT * FROM bank_transactions WHERE `account` = ? AND date < (NOW() - INTERVAL 1 WEEK) ORDER BY date DESC'
+local GET_TRANSACTIONS = 'SELECT * FROM bank_transactions WHERE `account` = ? AND date > (NOW() - INTERVAL 1 WEEK) ORDER BY date DESC'
 function db.getTransactions(account)
-    return MySQL.prepare.await(GET_TRANSACTIONS, {account})
+    local transactions = MySQL.prepare.await(GET_TRANSACTIONS, {account})
+    return transactions
+end
+
+local UPDATE_TRANSACTION = 'UPDATE bank_transactions SET account = ? WHERE account = ?'
+function db.updateTransactions(account, newAccount)
+    MySQL.prepare(UPDATE_TRANSACTION, {newAccount, account})
 end
 
 local SELECT_CHARACTER_ACCOUNTS = 'SELECT `account` FROM `player_accounts` WHERE `charid` = ?'

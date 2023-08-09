@@ -2,10 +2,6 @@ local Renewed = exports['Renewed-Lib']:getLib()
 
 local Framework = {}
 
-
-
-
-
 function Framework.addMoney(source, amount, mType, reason)
     if not source or not amount or not mType then return false end
 
@@ -20,7 +16,7 @@ end
 
 function Framework.getCharId(source)
     if not source then return false end
-
+    print("Framework.getCharId")
     return Renewed.getCharId(source)
 end
 

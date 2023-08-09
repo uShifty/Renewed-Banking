@@ -1,5 +1,5 @@
 <script>
-    import { notify } from "../store/stores";
+    import { notify } from "../../store/stores";
 </script>
 
 <section class="notificaion-container">

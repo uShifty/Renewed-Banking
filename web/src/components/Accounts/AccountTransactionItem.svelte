@@ -1,5 +1,6 @@
 <script lang="ts">
-    export let transaction: any;
+	import type  { transactionType } from "../../types/types";
+    export let transaction: transactionType;
     import { formatMoney } from "../../utils/misc";
     import { translations } from "../../store/stores";
     function getTimeElapsed(seconds: number): string {

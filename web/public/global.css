@@ -1,6 +1,7 @@
 :root {
-    --clr-primary: #393A45;
+    --clr-primary: #202930;
     --clr-primary-light: #393A45;
+    --clr-primary-lighest: #525364;
     --clr-primary-dark: transparant;
 
     --clr-green: #34b8a8;
@@ -79,16 +80,13 @@ h3.heading {
 }
 
 .btn-grey:is(:hover, :focus, :focus-within) {
-    background-color: #000;
-    color: var(--clr-grey);
+    background-color: #303030;
 }
 .btn-orange:is(:hover, :focus, :focus-within) {
-    background-color: #000;
-    color: var(--clr-orange);
+    background-color: #bf731e;
 }
 .btn-green:is(:hover, :focus, :focus-within) {
-    background-color: #000;
-    color: var(--clr-green);
+    background-color: #1f897f;
 }
 
 .scroller {

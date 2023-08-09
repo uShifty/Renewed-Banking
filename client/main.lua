@@ -1,8 +1,82 @@
-local isVisible = false
+local isVisible, FullyLoaded = false, false
 local progressBar = Config.progressbar == 'circle' and lib.progressCircle or lib.progressBar
-PlayerPed = cache.ped
+local PlayerPed = cache.ped
+local require = lib.require
+local Framework = require('client.framework')
 
-local Framework2 = require 'client.newFramework'
+if Config.framework == 'qb'then
+    FullyLoaded = LocalPlayer.state.isLoggedIn or false
+elseif Config.framework == 'esx'then
+    FullyLoaded = exports['es_extended']:getSharedObject().PlayerLoaded or false
+else
+	print('^6[^3Renewed-Banking^6]^0 Unsupported Framework detected!')
+end
+
+local Target
+if Config.target == 'ox' then
+    Target = require('modules.targets.ox')
+elseif Config.target == 'qb' then
+    Target = require('modules.targets.qb')
+end
+
+local pedSpawned = false
+local peds = {basic = {}, adv ={}}
+local blips = {}
+
+AddStateBagChangeHandler('isLoggedIn', nil, function(_, _, value)
+    FullyLoaded = value
+end)
+
+local function initalizeBanking()
+    CreatePeds()
+    local locales = lib.getLocales()
+    local PlayerData = lib.callback.await('renewed-banking:server:getPlayerData', false)
+    SendNUIMessage({
+        action = 'initializeInterface',
+        translations = locales,
+        currency = Config.currency,
+        PlayerData= PlayerData
+    })
+end
+
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    Wait(100)
+    initalizeBanking()
+end)
+
+RegisterNetEvent('esx:playerLoaded', function(xPlayer)
+    Wait(100)
+    FullyLoaded = true
+    initalizeBanking()
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+    Wait(100)
+    if resourceName ~= GetCurrentResourceName() then return end
+    if not FullyLoaded then return end
+    initalizeBanking()
+end)
+
+local function DeletePeds()
+    if not pedSpawned then return end
+    local k=1
+    for x,v in pairs(peds)do
+        for i=1, #v do
+            DeletePed(v[i])
+            RemoveBlip(blips[k])
+            k += 1
+        end
+        peds[x] = {}
+    end
+end
+
+AddEventHandler('QBCore:Client:OnPlayerUnload', function()
+    DeletePeds()
+end)
+
+AddEventHandler('esx:onPlayerLogout', function()
+    DeletePeds()
+end)
 
 lib.onCache('ped', function(newPed)
 	PlayerPed = newPed
@@ -18,15 +92,13 @@ local function openBankUI(isAtm)
     nuiHandler(true)
 
     local accounts = lib.callback.await('renewed-banking:server:initalizeBanking', false)
-
     if not accounts then
         nuiHandler(false)
         lib.notify({title = locale('bank_name'), description = locale('loading_failed'), type = 'error'})
         return
     end
 
-    local playerMoney = Framework2.getMoney()
-
+    local playerMoney = Framework.getMoney()
     accounts[1].cash, accounts[1].amount = playerMoney[1], playerMoney[2]
 
     SetTimeout(1000, function()
@@ -51,12 +123,7 @@ RegisterNetEvent('Renewed-Banking:client:openBankUI', function(data)
         allowCuffed = false,
         allowFalling = false,
         canCancel = true,
-        disable = {
-            car = true,
-            move = true,
-            combat = true,
-            mouse = false,
-        }
+        disable = { car = true, move = true, combat = true, mouse = false }
     }) then
         openBankUI(data.atm)
         Wait(500)
@@ -72,6 +139,11 @@ RegisterNUICallback('closeInterface', function(_, cb)
     cb('ok')
 end)
 
+RegisterNUICallback('getTransactions', function(data, cb)
+    local transactions = lib.callback.await('renewed-banking:server:getAccountTransactions', false, data)
+    cb(transactions)
+end)
+
 RegisterCommand('closeBankUI', function() nuiHandler(false) end, false)
 
 local bankActions = {'deposit', 'withdraw', 'transfer'}
@@ -79,40 +151,48 @@ CreateThread(function ()
     for k=1, #bankActions do
         RegisterNUICallback(bankActions[k], function(data, cb)
             local newTransaction = lib.callback.await('Renewed-Banking:server:'..bankActions[k], false, data)
-
             if not newTransaction then return cb(false) end
-
-            local playerMoney = Framework2.getMoney()
+            local playerMoney = Framework.getMoney()
 
             newTransaction.cash = playerMoney[1]
-
             if not newTransaction.bank then
                 newTransaction.bank = playerMoney[2]
             end
-
             cb(newTransaction)
         end)
     end
-    exports.ox_target:addModel(Config.atms, {{
-        name = 'renewed_banking_openui',
-        event = 'Renewed-Banking:client:openBankUI',
-        icon = 'fas fa-money-check',
-        label = locale('view_bank'),
-        atm = true,
-        canInteract = function(_, distance)
-            return distance < 2.5
-        end
-    }})
 end)
 
-local pedSpawned = false
-local peds = {basic = {}, adv ={}}
-local blips = {}
+RegisterNUICallback('createAccount', function(data, cb)
+    data.accountID = data.accountID:upper():gsub("%s+", "")
+    local accountCreated = lib.callback.await('Renewed-Banking:server:createNewAccount', false, data.accountID)
+    cb(accountCreated)
+end)
+
+RegisterNUICallback('deleteaccount', function(data, cb)
+    local accountDeleted = lib.callback.await('Renewed-Banking:server:deleteAccount', false, data.accountID)
+    cb(accountDeleted)
+end)
+
+RegisterNUICallback('addmember', function(data, cb)
+    local memberAdded = lib.callback.await('Renewed-Banking:server:addAccountMember', false, data.memberID, data.accountID)
+    cb(memberAdded)
+end)
+
+RegisterNUICallback('removemember', function(data, cb)
+    local memberRemoved = lib.callback.await('Renewed-Banking:server:removeAccountMembers', false, data.accountID, data.members)
+    cb(memberRemoved)
+end)
+
+RegisterNUICallback('updateaccountid', function(data, cb)
+    local accountUpdated = lib.callback.await('Renewed-Banking:server:changeAccountName', false, data.accountID, data.newAccountID)
+    cb(accountUpdated)
+end)
+
 function CreatePeds()
     if pedSpawned then return end
     for k=1, #Config.peds do
         local model = joaat(Config.peds[k].model)
-
         RequestModel(model)
         while not HasModelLoaded(model) do Wait(0) end
 
@@ -135,51 +215,15 @@ function CreatePeds()
         AddTextComponentString('Bank')
         EndTextCommandSetBlipName(blips[k])
     end
-
-    local targetOpts ={{
-        name = 'renewed_banking_openui',
-        event = 'Renewed-Banking:client:openBankUI',
-        icon = 'fas fa-money-check',
-        label = locale('view_bank'),
-        atm = false,
-        canInteract = function(_, distance)
-            return distance < 4.5
-        end
-    }}
-    exports.ox_target:addLocalEntity(peds.basic, targetOpts)
-    targetOpts[#targetOpts+1]={
-        name = 'renewed_banking_accountmng',
-        event = 'Renewed-Banking:client:accountManagmentMenu',
-        icon = 'fas fa-money-check',
-        label = locale('manage_bank'),
-        atm = false,
-        canInteract = function(_, distance)
-            return distance < 4.5
-        end
-    }
-    exports.ox_target:addLocalEntity(peds.adv, targetOpts)
     pedSpawned = true
+    Target.AddHook(peds)
 end
 
-function DeletePeds()
-    if not pedSpawned then return end
-    local k=1
-    for x,v in pairs(peds)do
-        for i=1, #v do
-            DeletePed(v[i])
-            RemoveBlip(blips[k])
-            k += 1
-        end
-        peds[x] = {}
-    end
-end
 
 AddEventHandler('onResourceStop', function(resource)
     if resource ~= GetCurrentResourceName() then return end
-    exports.ox_target:removeModel(Config.atms, {'renewed_banking_openui'})
-    exports.ox_target:removeEntity(peds.basic, {'renewed_banking_openui'})
-    exports.ox_target:removeEntity(peds.adv, {'renewed_banking_openui','renewed_banking_accountmng'})
     DeletePeds()
+    Target.RemoveHook()
 end)
 
 RegisterNetEvent('Renewed-Banking:client:sendNotification', function(msg)
