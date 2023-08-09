@@ -2,9 +2,9 @@
     import VisibilityProvider from "./providers/VisibilityProvider.svelte";
     import { debugData } from "./utils/debugData";
     import AccountsContainer from "./components/AccountsContainer.svelte";
-    import Popup from "./components/Popup.svelte";
-    import Loading from "./components/Loading.svelte";
-    import Notification from "./components/Notification.svelte";
+    import Popup from "./components/Misc/Popup.svelte";
+    import Loading from "./components/Misc/Loading.svelte";
+    import Notification from "./components/Misc/Notification.svelte";
     import { popupDetails, loading, notify } from "./store/stores";
 
     debugData([
@@ -16,7 +16,10 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
 </svelte:head>
 <VisibilityProvider>
     <AccountsContainer />
@@ -27,6 +30,7 @@
         <Notification />
     {/if}
 </VisibilityProvider>
+
 {#if $loading}
     <Loading />
 {/if}

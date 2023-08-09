@@ -73,6 +73,7 @@ function GetIdentifier(Player)
 end
 
 function GetFunds(Player)
+    Player = GetPlayerObject(Player)
     if Framework == 'qb' then
         local funds = {
             cash = Player.PlayerData.money.cash,
@@ -193,6 +194,7 @@ end
 --Misc Framework Events
 
 AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
+    Wait(math.random(2500, 5000))
     UpdatePlayerAccount(Player.PlayerData.source)
 end)
 

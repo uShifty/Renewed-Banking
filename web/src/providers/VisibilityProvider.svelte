@@ -10,7 +10,8 @@
     popupDetails,
     atm,
     translations,
-    currency
+    currency,
+    Player
   } from '../store/stores';
   import { useNuiEvent } from '../utils/useNuiEvent';
   let isVisible: boolean;
@@ -38,9 +39,10 @@
     }, 3500);
   })
 
-  useNuiEvent<any>('updateLocale', data => {
+  useNuiEvent<any>('initializeInterface', data => {
     translations.set(data.translations);
     currency.set(data.currency);
+    Player.subscribe(data.PlayerData);
   })
   
   onMount(() => {
