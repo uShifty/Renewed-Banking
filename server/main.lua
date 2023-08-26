@@ -273,7 +273,7 @@ lib.callback.register('Renewed-Banking:server:getPlayerAccounts', function(sourc
     return ownedAccounts or false
 end)
 
-lib.callback.register('Renewed-Banking:server:getMembers', function(source, accountid)
+lib.callback.register('Renewed-Banking:server:getMembers', function(_, accountid)
     local members = db.selectMembers(accountid)
     if type(members) ~= "string" then
         for k=1, #members do
@@ -409,7 +409,7 @@ local function getAccountTransactions(account)
 end
 exports("getAccountTransactions", getAccountTransactions)
 
-lib.callback.register('renewed-banking:server:getAccountTransactions', function(source, data)
+lib.callback.register('renewed-banking:server:getAccountTransactions', function(_, data)
     return db.getTransactions(data.account)
 end)
 

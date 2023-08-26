@@ -4,7 +4,7 @@ local Framework = require('modules.framework')
 local account = {}
 
 local function getAccountById(id)
-    for test, acc in pairs(account) do
+    for _, acc in pairs(account) do
         if type(acc) ~= "table" then goto skip end
         if acc.id == id then
             return acc
