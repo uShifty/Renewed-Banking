@@ -23,8 +23,7 @@
         account = $accounts.find(
             (accountItem: accountType) => $activeAccount === accountItem.id
         );
-        areInputsEqual =
-            accountId !== "" && accountId.trim() === accountId2.trim();
+        areInputsEqual = accountId !== "" && accountId.trim() === accountId2.trim();
     }
 
     function closePopup() {
@@ -36,7 +35,6 @@
 
     function validateInput(inputField: any) {
         let newInput: string = validateAccountID(inputField);
-        console.log(newInput);
         dispatch("input", newInput);
     }
 
@@ -45,32 +43,38 @@
         try {
             const retData = await fetchNui($popupDetails.actionType, {
                 accountID: $activeAccount,
-                newAccountID: accountId,
+                newAccountID: accountId2
             });
-
+            closePopup();
             if (retData !== false) {
                 accounts.update((arr) => {
-                    return arr.map((mapAccount: accountType) => {
-                        if (mapAccount.id === $activeAccount)
-                            mapAccount.id = accountId2;
+                    return arr.map((mapAccount: any) => {
+                        if (mapAccount && mapAccount.id === $activeAccount) {
+                            const updatedAccount = {
+                                ...mapAccount,
+                                id: accountId2,
+                                name: accountId2,
+                            };
+                            activeAccount.set(accountId2);
+                            return updatedAccount;
+                        }
                         return mapAccount;
                     });
                 });
             }
-        } catch (error) {
-            console.error("Error:", error);
+        } catch (fetchError) {
+            console.error("Fetch Error:", fetchError);
         } finally {
             loading.set(false);
-            closePopup();
         }
     }
 </script>
 
 <section class="popup-content">
-    <h2>Update Account ID: {account.id}</h2>
+    <h2>{$translations.ui_update_account}: {account.id}</h2>
     <form action="#">
         <div class="form-row">
-            <label for="accountId">New Account ID</label>
+            <label for="accountId">{$translations.new_acc_id}</label>
             <input
                 bind:value={accountId}
                 type="text"
@@ -79,7 +83,7 @@
                 placeholder=""
                 on:input={(event) => validateInput(event.target)}
             />
-            <label for="accountId2">Confirm Account ID</label>
+            <label for="accountId2">{$translations.confirm_acc_id}</label>
             <input
                 bind:value={accountId2}
                 type="text"

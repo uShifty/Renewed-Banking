@@ -90,5 +90,23 @@
     "trans_not_found": "Keine Transaktionen gefunden",
     "export_data": "Transaktionsdaten exportieren",
     "account_search": "Kontosuche...",
-    "account_not_found": "Keine Konten gefunden"
+    "account_not_found": "Keine Konten gefunden",
+    "unsupported_framework": "^${renewed_banking} Nicht unterstütztes Framework erkannt!",
+    "creating_db": "${renewed_banking} Erstellen eines Renewed Banking v2-Datenbankschemas",
+    "created_db": "${renewed_banking} Renewed Banking v2 Datenbankschema erstellt!",
+    "conversion_db": "${renewed_banking} hat mit der Konvertierung von Renewed Banking V1 => v2 begonnen",
+    "converted_db": "${renewed_banking} Renewed Banking V1 => v2-Konvertierung abgeschlossen!",
+    "transactions_copied": "Transaktionen in die Zwischenablage kopiert!",
+    "ui_remove_member": "Mitglied entfernen",
+    "ui_add_member": "Mitglied hinzufügen",
+    "ui_update_account": "Konto-ID aktualisieren",
+    "ui_delete_account": "KONTO LÖSCHEN",
+    "acc_del_scroll_warn": "Bitte lesen und scrollen Sie die gesamte Warnung durch, bevor Sie sie bestätigen!",
+    "acc_del_title": "ACHTUNG: HINWEIS ZUR LÖSUNG DES KONTOS",
+    "acc_deL_confirm": "Ich habe die Warnung gelesen und verstanden. Ich bestätige die Löschung meines Bankkontos.",
+    "no_member_found": "Keine Mitglieder gefunden!",
+    "new_acc_id": "Neue Konto-ID",
+    "confirm_acc_id": "Bestätigen Sie die Konto-ID",
+    "account_deletion_message": "<p>Lieber @{name},</p>\n<p>Diese Nachricht dient dazu, Sie <strong>nachdrücklich</strong> über Ihre <em>dringende</em> Anfrage zur Löschung Ihres Bankkontos zu informieren. Bevor wir fortfahren, möchten wir die erheblichen Konsequenzen und potenziellen Risiken betonen, die mit dieser <em>kritischen</em> Maßnahme verbunden sind. Bitte lesen Sie die folgende <em>wichtige</em> Warnung sorgfältig durch:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Irreversible Aktion:</strong> Die Löschung Ihres Bankkontos ist eine <em>dauerhafte Entscheidung</em>, die <strong>nicht möglich ist rückgängig gemacht werden</strong>. Sobald das Konto geschlossen wird, werden alle damit verbundenen Daten, der Transaktionsverlauf und die Kontodetails <strong>dauerhaft</strong> aus unserem System gelöscht.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Verlust von Finanzdienstleistungen:</strong> Wenn Sie Ihr Konto löschen, verlieren Sie den Zugriff auf <em>alles</em> in Bezug auf Ihr Konto. Sie können keine <strong>Bankgeschäfte</strong> mehr durchführen.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Versäumte Zahlungen und Verpflichtungen:</strong> Das Löschen Ihres Bankkontos kann zu <em>schwerwiegenden Störungen</em> in Ihrem Konto führen Finanzielle Verpflichtungen. Alle <strong>ausstehenden Zahlungen, automatischen Abbuchungen, Daueraufträge oder Direkteinzahlungen</strong>, die mit Ihrem Konto verknüpft sind, werden <strong>nicht mehr funktionieren</strong>. Es liegt <em>in Ihrer Verantwortung</em>, Ihre Finanzinformationen bei relevanten Organisationen zu aktualisieren und einen <strong>reibungslosen Übergang</strong> sicherzustellen.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i>Verlust des Transaktionsverlaufs:</strong> Das Löschen Ihres Kontos bedeutet den <em>dauerhaften Verlust</em> aller <strong >Transaktionsdatensätze</strong>, die diesem Konto zugeordnet sind. Diese Informationen können für <strong>Steuerzwecke, Finanzplanung oder rechtliche Anforderungen</strong> <em>wesentlich</em> sein. Es wird <strong>dringend empfohlen</strong>, alle erforderlichen Unterlagen zu <strong>besorgen und sicher aufzubewahren</strong>, <strong>bevor Sie fortfahren</strong>.</li>\n</ol>\n<p>Wir nehmen Ihre <strong>finanzielle Sicherheit</strong> und <strong>Zufriedenheit</strong> <em>sehr ernst</em> und <strong>danken</strong> Ihr anhaltendes Vertrauen </strong> in unseren Dienstleistungen. Wenn Sie dennoch mit der Löschung Ihres Bankkontos fortfahren möchten, <strong>bestätigen Sie Ihre Anfrage</strong>, indem Sie <strong>durch diese gesamte Warnung scrollen</strong> und <strong>das Kästchen unten markieren</strong> .</p>"
+  
 }

@@ -19,18 +19,26 @@
     let filteredTransactions: transactionType[] = [];
 
     async function fetchTransactions(accountId: string) {
-        const transactions = await fetchNui("getTransactions", { account: accountId });
-        accounts.update((arr) => {
-            return arr.map((mapAccount: accountType) => {
-                if (mapAccount.id === accountId) {
-                    return {...mapAccount, transactions: Array.isArray(transactions)
-                        ? [...transactions, ...(mapAccount.transactions || [])]
-                        : [transactions, ...(mapAccount.transactions || [])],
-                    };
-                }
-                return mapAccount;
-            });
-        });
+        try {
+            const transactions = await fetchNui("getTransactions", { account: accountId });
+
+            if (transactions) {
+                accounts.update((arr) =>
+                    arr.map((mapAccount: accountType) => {
+                        if (mapAccount.id === accountId) {
+                            return {
+                                ...mapAccount,
+                                transactions: Array.isArray(transactions) ? [...(mapAccount.transactions || []), ...transactions] : [...(mapAccount.transactions || []), transactions]
+                            };
+                        }
+                        return mapAccount;
+                    })
+                );
+            }
+            
+        } catch (error) {
+            console.error("Error fetching transactions:", error);
+        }
     }
 
     $: {
@@ -50,40 +58,15 @@
             item.receiver.toLowerCase().includes(transSearch.toLowerCase())
         );
     }
-
-    function handleClickExportData() {
-        if (!account) {
-            return console.log("No account selected");
-        }
-
-        if (account.transactions.length === 0) {
-            notify.set("No transactions to export!");
-            setTimeout(() => {
-                notify.set("");
-            }, 3500);
-            return;
-        }
-
-        const csv = convertToCSV(account.transactions);
-        setClipboard(csv);
-        notify.set("Data copied to clipboard!");
-        setTimeout(() => {
-            notify.set("");
-        }, 3500);
-    }
 </script>
 
 <section class="transactions-container">
     <div class="heading">
         <div class="heading-row">
-            <span class="left-span bigger-bold"
-                >{$translations.transactions}</span
-            >
+            <span class="left-span bigger-bold">{$translations.transactions}</span>
             <div class="right-container">
                 <img src="./img/bank.png" alt="bank icon" />
-                <span class="right-span bigger-bold"
-                    >{$translations.bank_name}</span
-                >
+                <span class="right-span bigger-bold">{$translations.bank_name}</span>
             </div>
         </div>
     </div>

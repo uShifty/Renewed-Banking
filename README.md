@@ -1,19 +1,19 @@
-# Renewed-Banking 2.0.0
+# Renewed-Banking
 <a href='https://ko-fi.com/ushifty' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
  
- [Renewed Discord](https://discord.gg/P3RMrbwA8n)
+[Renewed Discord](https://discord.gg/P3RMrbwA8n)
 
 # Project Description
 This resource is created & maintained by uShifty#1733 and was not a fork of any of the other banking resources.
-The legacy UI was heavily inspired by No Pixel 3.0
-The 2.0 UI was redesigned by [qwadebot](https://github.com/qw-scripts) Edited by [uShifty](https://github.com/uShifty)
-
+The 2.0 UI was originally redesigned by [qwadebot](https://github.com/qw-scripts) has since been modified significantly by the Renewed team.
 
 # Dependencies
 * [oxmysql](https://github.com/overextended/oxmysql)
 * [ox-lib](https://github.com/overextended/ox_lib)
-* [ox-target](https://github.com/overextended/ox_target)
-Note: Supports QBCore and ESX. You can easily add support for other frameworks by editing the Framework.lua
+* [Renewed-Lib](https://github.com/Renewed-Scripts/Renewed-Lib)
+* [ox_target](https://github.com/overextended/ox_target) (Optional)
+* [qb-target](https://github.com/qbcore-framework/qb-target) (Optional) **Supported not recommended**
+Note: Frameworks Supported QBCore and ESX. 
  
 # Features
 * Personal, Job, Gang, Shared Accounts
@@ -22,9 +22,7 @@ Note: Supports QBCore and ESX. You can easily add support for other frameworks b
 
 # Installation
 
-1) Insert the SQL provided
-
-2) Integrate the exports found below in any external resource that needs them
+1) Integrate the exports found below in any external resource that needs them
  
 ## Transaction Integrations
 
@@ -37,13 +35,13 @@ exports['Renewed-Banking']:handleTransaction(account, title, amount, message, is
  ---@param message<string> - Description of transaction
  ---@param issuer<string> - Name of Business or Character issuing the bill
  ---@param receiver<string> - Name of Business or Character receiving the bill
- ---@param type<string> - deposit | withdraw
+ ---@param type<string> - "deposit" | "withdraw"
  ---@param transID<string> - (optional) Force a specific transaction ID instead of generating one.
 
 ---@return transaction<table> {
   ---@param trans_id<string> - Transaction ID for the created transaction
   ---@param amount<number> - Amount of money being transacted
-  ---@param trans_type<string> - deposit | withdraw
+  ---@param trans_type<string> - "deposit" | "withdraw"
   ---@param receiver<string> - Name of Business or Character receiving the bill
   ---@param message<string> - Description of transaction
   ---@param issuer<string> - Name of Business or Character issuing the bill
@@ -80,12 +78,33 @@ exports['qb-management']:AddGangMoney=> exports['Renewed-Banking']:addAccountMon
 exports['qb-management']:RemoveGangMoney=> exports['Renewed-Banking']:removeAccountMoney
 ```
 ## Society Bank Access
-Edit your QBCore/Shared/jobs.lua and QBCore/Shared/gangs.lua and add `bankAuth = true` to the job/gang grades which have access to society funds
-
+QBCore:
+Checks if the grade has the isboss variable in their job table.
+ESX:
+Checks if the grade name is "boss"
 
  ## Change Logs
 <details>
  <summary>View History</summary>
+
+ V2.1.0
+ ```
+ New Database Schema (No SQL Required)
+ ```
+
+ V2.0.2
+ ```
+ ESX Fix Jobs Error (2edf28e)
+ Fix Native To Retrieve All Players, On Account Name Change
+ Edited Deposit/Withdraw/Transfer Default Comment To Show Name Instead Of Identifier
+ ```
+
+ V2.0.1
+ ```
+ Fix QBCore/QBox Compatibility issues
+ Fix Sanitizing Messages throwing errors for languages
+ Fix Renewed QB Phone Multi Job not showing jobs
+ ```
 
  V2.0.0
  ```

@@ -1,94 +1,23 @@
 <script lang="ts">
-  import { accounts, activeAccount, popupDetails, loading, translations, selectedMembers } from "../../../store/stores";
+  import { accounts, activeAccount, popupDetails, loading, translations, selectedMembers, Player } from "../../../store/stores";
   import type { accountType } from "../../../types/types";
   import { fetchNui } from "../../../utils/fetchNui";
   import MemberCard from './MemberCard.svelte'; // Import the MemberCard component
-  
+  import { isEnvBrowser } from "../../../utils/misc";
   // Use reactive statement to update the 'account' variable when 'accounts' or 'activeAccount' change
-  $: account = $accounts.find((accountItem: accountType) => $activeAccount === accountItem.id);
-  
-  let members = [
-    {
-      name: "Tyrese",
-      id: '1'
-    },
-    {
-      name: "Tyres",
-      id: '2'
-    },
-    {
-      name: "Tyre",
-      id: '3'
-    },
-    {
-      name: "Tyr",
-      id: '4'
-    },
-    {
-      name: "Ty",
-      id: '5'
-    },
-    {
-      name: "T",
-      id: '6'
-    },
-    {
-      name: "Ty",
-      id: '7'
-    },
-    {
-      name: "Tyr",
-      id: '8'
-    },
-    {
-      name: "Tyre",
-      id: '9'
-    },
-    {
-      name: "Tyrese",
-      id: '10'
-    },
-    {
-      name: "Tyrese",
-      id: '1'
-    },
-    {
-      name: "Tyres",
-      id: '2'
-    },
-    {
-      name: "Tyre",
-      id: '3'
-    },
-    {
-      name: "Tyr",
-      id: '4'
-    },
-    {
-      name: "Ty",
-      id: '5'
-    },
-    {
-      name: "T",
-      id: '6'
-    },
-    {
-      name: "Ty",
-      id: '7'
-    },
-    {
-      name: "Tyr",
-      id: '8'
-    },
-    {
-      name: "Tyre",
-      id: '9'
-    },
-    {
-      name: "Tyrese",
-      id: '10'
+  let account: accountType; 
+  let previousAccountId: any; 
+  let members: any;
+  let filteredTransactions
+  async function fetchMembers(accountId: string) {
+        try {
+            members = await fetchNui("getMembers", { account: accountId });
+
+        } catch (error) {
+            console.error("Error fetching transactions:", error);
+        }
     }
-  ]
+
   function closePopup() {
     popupDetails.update((val: any) => ({
       ...val,
@@ -99,45 +28,50 @@
   async function submitInput() {
     loading.set(true);
     try {
-      console.log('selectedMembers')
-      console.log($selectedMembers)
       const retData = await fetchNui($popupDetails.actionType, {
         accountID: account.id,
         members: $selectedMembers // Pass the array of selected member IDs
       });
-  
-      if (retData !== false) {
-        accounts.update((arr) => {
-          return arr.map((mapAccount: accountType) => {
-            if (mapAccount.id === account.id) {
-              return {
-                ...mapAccount,
-                members: retData.members
-              };
-            }
-            return mapAccount;
-          });
-        });
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
       loading.set(false);
       closePopup();
+      selectedMembers.set([])
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
+  
+  $: {
+        account = $accounts.find(
+            (accountItem: accountType) => $activeAccount === accountItem.id
+        );
+
+        if (account && account.id && account.id !== previousAccountId) {
+            previousAccountId = account.id;
+            if (isEnvBrowser()) {
+              members=[{name:"Tyrese",charid:'1'},{name:"Tyres",charid:'2'},{name:"Tyre",charid:'3'},{name:"Tyr",charid:'4'},{name:"Ty",charid:'5'},{name:"T",charid:'6'},{name:"Ty",charid:'7'},{name:"Tyr",charid:'8'},{name:"Tyre",charid:'9'},{name:"Tyrese",charid:'10'},{name:"Tyrese",charid:'1'},{name:"Tyres",charid:'2'},{name:"Tyre",charid:'3'},{name:"Tyr",charid:'4'},{name:"Ty",charid:'5'},{name:"T",charid:'6'},{name:"Ty",charid:'7'},{name:"Tyr",charid:'8'},{name:"Tyre",charid:'9'},{name:"Tyrese",charid:'10'}]
+            }
+            fetchMembers(account.id);
+        }
+    }
+    
 </script>
 
 <section class="popup-content">
-  <h2>Remove Member: {account.id}</h2>
+  <h2>{$translations.ui_remove_member}: {account.id}</h2>
   <form action="#">
     <!-- Add a container to hold the member cards -->
     <div class="member-cards">
-      {#each members as member}
-        <MemberCard
-          member={member}
-        />
-      {/each}
+      {#if members && typeof(members) !== "string"}
+        {#each members as member}
+          {#if member.charid !== undefined && member.charid !== $Player.id}
+            <MemberCard
+              member={member}
+            />
+          {/if}
+        {/each}
+      {:else}
+        {$translations.no_member_found}
+      {/if}
     </div>
   
     <div class="btns-group">

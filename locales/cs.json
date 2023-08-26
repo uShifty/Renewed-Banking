@@ -90,5 +90,23 @@
 	"trans_not_found": "Nebyly nalezeny žádné transakce",
 	"export_data": "Export údajů o transakcích",
 	"account_search": "Hledání účtu...",
-	"account_not_found": "Nebyly nalezeny žádné účty"
+	"account_not_found": "Nebyly nalezeny žádné účty",
+	"unsupported_framework": "^${renewed_banking} Byl zjištěn nepodporovaný rámec!",
+	"creating_db": "${renewed_banking} Vytvoření schématu databáze Renewed Banking v2",
+	"created_db": "${renewed_banking} Bylo vytvořeno schéma databáze Renewed Banking v2!",
+	"conversion_db": "${renewed_banking} Started Renewed Banking V1 => v2 Conversion",
+	"converted_db": "${renewed_banking} Renewed Banking V1 => v2 Převod dokončen!",
+	"transactions_copied": "Transakce zkopírovány do schránky!",
+	"ui_remove_member": "Odebrat člena",
+	"ui_add_member": "Přidat člena",
+	"ui_update_account": "Aktualizujte ID účtu",
+	"ui_delete_account": "SMAZAT ÚČET",
+	"acc_del_scroll_warn": "Před potvrzením si prosím přečtěte a projděte celé varování!",
+	"acc_del_title": "VAROVÁNÍ: OZNÁMENÍ O VYMAZÁNÍ ÚČTU",
+	"acc_deL_confirm": "Varování jsem si přečetl a pochopil. Potvrzuji smazání mého bankovního účtu.",
+	"no_member_found": "Nebyli nalezeni žádní členové!",
+	"new_acc_id": "ID nového účtu",
+	"confirm_acc_id": "Potvrďte ID účtu",
+	"account_deletion_message": "<p>Vážený @{name},</p>\n<p>Tato zpráva vás <strong>důrazně</strong> informuje o vaší <em>naléhavé</em> žádosti o smazání vašeho bankovního účtu. Než budeme pokračovat, chceme <strong>zdůraznit</strong> významné důsledky a potenciální rizika spojená s touto <em>kritickou</em> akcí. <strong>Pečlivě si přečtěte</strong> následující <em>důležité</em> varování:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Nevratná akce:</strong> Smazání vašeho bankovního účtu je <em>trvalé rozhodnutí</em>, které <strong>nelze vrátit zpět</strong>. Jakmile bude účet uzavřen, všechna související data, historie transakcí a podrobnosti o účtu budou z našeho systému <strong>trvale vymazány</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Ztráta finančních služeb:</strong> Smazáním účtu ztratíte přístup ke <em>všemu</em> ve vztahu k vašemu účtu. Již nebudete moci provádět žádné <strong>bankovní transakce</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Zmeškané platby a závazky:</strong> Smazání bankovního účtu může vést k <em>závažnému narušení</em> finanční závazky. Veškeré <strong>nevyřízené platby, automatická inkasa, trvalé příkazy nebo přímé vklady</strong> spojené s vaším účtem <strong>přestanou fungovat</strong>. Je <em>vaší odpovědností</em> <strong>aktualizovat své finanční údaje</strong> u příslušných organizací a zajistit <strong>hladký přechod</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Ztráta historie transakcí:</strong> Smazání účtu znamená <em>trvalou ztrátu</em> všech <strong >transakční záznamy</strong> spojené s tímto účtem. Tyto informace mohou být <em>nezbytné</em> pro <strong>daňové účely, finanční plánování nebo právní požadavky</strong>. <strong>Důrazně doporučujeme</strong> <strong>získat a bezpečně uložit</strong> veškerou potřebnou dokumentaci <strong>než budete pokračovat</strong>.</li>\n</ol>\n<p>Vaši <strong>finanční bezpečnost</strong> a <strong>spokojenost</strong> bereme <em>velmi vážně</em> a <strong>oceňujeme</strong> vaši <strong>nepřetržitou důvěru </strong>v našich službách. Pokud si přesto přejete pokračovat ve smazání svého bankovního účtu, <strong>potvrďte prosím svůj požadavek</strong> <strong>procházením celého tohoto upozornění</strong> a <strong>zaškrtnutím políčka níže</strong> .</p>"
+  
 }

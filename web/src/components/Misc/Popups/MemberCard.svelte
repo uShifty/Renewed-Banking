@@ -1,25 +1,23 @@
 <script lang="ts">
-    import type { accountType } from "../../../types/types";
-    import { selectedMembers } from "../../../store/stores";
-    export let member: any;
-  
-    function toggleMemberSelection() {
-      selectedMembers.update((currentSelectedMembers) => {
-        if (currentSelectedMembers.includes(member.id)) {
-          return currentSelectedMembers.filter((id) => id !== member.id);
-        } else {
-          return [...currentSelectedMembers, member.id];
-        }
-      });
-    }
-  </script>
+  import type { accountType } from "../../../types/types";
+  import { selectedMembers } from "../../../store/stores";
+  export let member: any;
+  function toggleMemberSelection() {
+    selectedMembers.update((currentSelectedMembers) => {
+      if (currentSelectedMembers.includes(member.charid)) {
+        return currentSelectedMembers.filter((id) => id !== member.charid);
+      } else {
+        return [...currentSelectedMembers, member.charid];
+      }
+    });
+  }
+</script>
 
-  
-  <div class="member-card" class:selected={$selectedMembers.includes(member.id)} on:click={toggleMemberSelection} on:keydown={() => {}}>
-    <h3>{member.name}</h3>
-    <p>{member.id}</p>
-  </div>
-  
+<div class="member-card" class:selected={$selectedMembers.includes(member.charid)} on:click={toggleMemberSelection} on:keydown={() => {}}>
+  <h3>{member.name}</h3>
+  <p>{member.charid}</p>
+</div>
+
   <style>
     .member-card {
       display: flex;

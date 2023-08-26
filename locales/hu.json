@@ -90,5 +90,22 @@
 	"trans_not_found": "Nem található tranzakció",
 	"export_data": "Tranzakciós adatok exportálása",
 	"account_search": "Fiókkeresés...",
-	"account_not_found": "Nem található fiók"
+	"account_not_found": "Nem található fiók",
+	"unsupported_framework": "^${renewed_banking} Nem támogatott keretrendszer észlelve!",
+	"creating_db": "${renewed_banking} Megújított banki v2 adatbázisséma létrehozása",
+	"created_db": "${renewed_banking} Megújított Banking v2 adatbázisséma létrehozva!",
+	"conversion_db": "${renewed_banking} Megújult Banking V1 => v2 konverzió",
+	"converted_db": "${renewed_banking} Megújított Banking V1 => v2 Konverzió befejeződött!",
+	"transactions_copied": "A tranzakciók a vágólapra másolva!",
+	"ui_remove_member": "Tag eltávolítása",
+	"ui_add_member": "Tag hozzáadása",
+	"ui_update_account": "Fiókazonosító frissítése",
+	"ui_delete_account": "FIÓK TÖRLÉSE",
+	"acc_del_scroll_warn": "Kérjük, a megerősítés előtt olvassa el és görgessen végig a figyelmeztetést!",
+	"acc_del_title": "FIGYELMEZTETÉS: FIÓK TÖRLÉSE",
+	"acc_deL_confirm": "Elolvastam és megértettem a figyelmeztetést. Megerősítem a bankszámlám törlését.",
+	"no_member_found": "Nem találhatók tagok!",
+	"new_acc_id": "Új számlaazonosító",
+	"confirm_acc_id": "Erősítse meg a számlaazonosítót",
+	"account_deletion_message": "<p>Kedves @{name}!</p>\n<p>Ez az üzenet azért készült, hogy <strong>erősen</strong> tájékoztassuk Önt bankszámlája törlésére vonatkozó <em>sürgős</em> kéréséről. Mielőtt továbblépnénk, szeretnénk <strong>hangsúlyozni</strong> az ehhez a <em>kritikus</em> művelethez kapcsolódó jelentős következményeket és lehetséges kockázatokat. Kérjük, <strong>gondosan tekintse át</strong> a következő <em>fontos</em> figyelmeztetést:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Visszafordíthatatlan művelet:</strong> A bankszámla törlése <em>végleges döntés</em>, amelyet <strong>nem lehet vissza kell vonni</strong>t. A fiók bezárása után az összes kapcsolódó adat, tranzakciós előzmény és számlaadat <strong>véglegesen törlődik</strong> a rendszerünkből.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Pénzügyi szolgáltatások elvesztése:</strong> Ha törli fiókját, elveszíti a hozzáférést <em>mindenhez</em> fiókjával kapcsolatban. A továbbiakban nem fog tudni <strong>banki tranzakciókat</strong> végrehajtani.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Elmulasztott fizetések és kötelezettségek:</strong> A bankszámla törlése <em>súlyos fennakadásokat</em> okozhat pénzügyi kötelezettségek. A fiókjához kapcsolódó minden <strong>függőben lévő befizetés, automatikus beszedés, állandó megbízás vagy közvetlen befizetés</strong> <strong>megszűnik</strong>. <em>Az Ön felelőssége</em>, hogy <strong>frissítse pénzügyi adatait</strong> a megfelelő szervezetekkel, és biztosítsa a <strong>zökkenőmentes átmenetet</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Tranzakciós előzmények elvesztése:</strong> A fiók törlése az összes <strong>végleges elvesztését jelenti</em> >tranzakciós rekordok</strong> a fiókhoz társítva. Ezek az információk <em>alapvetőek</em> lehetnek <strong>adózási, pénzügyi tervezési vagy jogi követelmények</strong> szempontjából. <strong>Erősen ajánlott</strong> a szükséges dokumentumok <strong>beszerzése és biztonságos tárolása</strong> <strong>a folytatás előtt</strong>.</li>\n</ol>\n<p>Az Ön <strong>pénzügyi biztonságát</strong> és <strong>elégedettségét</strong> <em>nagyon komolyan</em> vesszük, és <strong>nagyra értékeljük</strong> <strong>folyamatos bizalmát </strong> szolgáltatásainkban. Ha továbbra is folytatni szeretné bankszámlája törlését, kérjük, <strong>erősítse meg kérelmét</strong> úgy, hogy <strong>görgesse végig ezt a figyelmeztetést</strong>, és <strong>jelölje be az alábbi négyzetet</strong> .</p>"  
 }

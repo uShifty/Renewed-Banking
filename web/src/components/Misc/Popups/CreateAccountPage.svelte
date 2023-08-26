@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { accounts, activeAccount, popupDetails, loading, translations } from "../../../store/stores";
+    import { accounts, activeAccount, popupDetails, loading, translations, Player } from "../../../store/stores";
 	import type  { accountType } from "../../../types/types";
     import { fetchNui } from "../../../utils/fetchNui";
     import { createEventDispatcher } from 'svelte';
@@ -18,26 +18,28 @@
     }
   
     function validateInput(inputField:any) {
-        let newInput: string = validateAccountID(inputField)
+        let newInput: string = validateAccountID(inputField).toUpperCase();
+        accountID = newInput;
         dispatch('input', newInput);
     }
 
     async function submitInput() {
         loading.set(true);
+        const retData = await fetchNui($popupDetails.actionType, {
+            id: accountID
+        });
         try {
+            if (retData !== false) {
                 accounts.update((array) => {
                     return [...array, {
                         id: accountID,
                         type: $translations.org,
                         name: accountID,
                         amount: 0, 
-                        citizen_id: '1',
+                        citizen_id: $Player.id,
                         transactions: []
                     }]; 
                 });
-            const retData = await fetchNui($popupDetails.actionType, { accountID: accountID });
-            
-            if (retData !== false) {
             }
         } catch (error) {
             console.error('Error:', error);
@@ -49,10 +51,10 @@
 </script>
 
 <section class="popup-content">
-    <h2>{"Create A Account"}</h2>
+    <h2>{$translations.create_account}</h2>
     <form action="#">
         <div class="form-row">
-            <label for="accountID">{"Account ID"}</label>
+            <label for="accountID">{$translations.account_id}</label>
             <input bind:value={accountID} type="text" name="accountID" id="accountID" placeholder="" on:input={(event) => validateInput(event.target)} />
         </div>
 

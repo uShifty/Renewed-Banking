@@ -90,5 +90,23 @@
 	"trans_not_found": "Tidak ada transaksi yang ditemukan",
 	"export_data": "Ekspor Data Transaksi",
 	"account_search": "Pencarian Akun...",
-	"account_not_found": "Tidak ada akun yang ditemukan"
+	"account_not_found": "Tidak ada akun yang ditemukan",
+	"unsupported_framework": "^${renewed_banking} Framework yang tidak didukung terdeteksi!",
+	"creating_db": "${renewed_banking} Membuat Skema Database Banking v2 yang Diperbarui",
+	"created_db": "${renewed_banking} Skema Basis Data Perbankan v2 yang Diperbarui Dibuat!",
+	"conversion_db": "${renewed_banking} Memulai Pembaruan Perbankan V1 => Konversi v2",
+	"converted_db": "${renewed_banking} Pembaruan Perbankan V1 => Konversi v2 Selesai!",
+	"transactions_copied": "Transaksi disalin ke clipboard!",
+	"ui_remove_member": "Hapus Anggota",
+	"ui_add_member": "Tambahkan anggota",
+	"ui_update_account": "Perbarui ID Akun",
+	"ui_delete_account": "HAPUS AKUN",
+	"acc_del_scroll_warn": "Harap baca dan telusuri seluruh peringatan sebelum mengonfirmasi!",
+	"acc_del_title": "PERINGATAN: PEMBERITAHUAN PENGHAPUSAN AKUN",
+	"acc_deL_confirm": "Saya telah membaca dan memahami peringatan tersebut. Saya mengonfirmasi penghapusan rekening bank saya.",
+	"no_member_found": "Tidak Ada Anggota yang Ditemukan!",
+	"new_acc_id": "ID Akun Baru",
+	"confirm_acc_id": "Konfirmasi ID Akun",
+	"account_deletion_message": "<p>Yang terhormat @{name},</p>\n<p>Pesan ini hadir untuk <strong>sangat</strong> memberi tahu Anda tentang permintaan <em>mendesak</em> Anda untuk menghapus rekening bank Anda. Sebelum melanjutkan, kami ingin <strong>menekankan</strong> konsekuensi signifikan dan potensi risiko yang terkait dengan tindakan <em>penting</em> ini. Harap <strong>tinjau dengan saksama</strong> peringatan <em>penting</em> berikut:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Tindakan yang Tidak Dapat Diubah:</strong> Menghapus rekening bank Anda adalah <em>keputusan permanen</em> yang <strong>tidak dapat dibatalkan</strong>. Setelah akun ditutup, semua data terkait, riwayat transaksi, dan detail akun akan <strong>dihapus secara permanen</strong> dari sistem kami.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Kehilangan Layanan Keuangan:</strong> Dengan menghapus akun Anda, Anda akan kehilangan akses ke <em>semuanya</em> sehubungan dengan akun Anda. Anda tidak dapat lagi melakukan <strong>transaksi perbankan</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Pembayaran dan Kewajiban yang Terlewatkan:</strong> Menghapus rekening bank Anda dapat menyebabkan <em>gangguan parah</em> pada kewajiban keuangan. Setiap <strong>pembayaran tertunda, debit otomatis, pesanan tetap, atau setoran langsung</strong> yang terkait dengan akun Anda akan <strong>berhenti berfungsi</strong>. Adalah <em>tanggung jawab Anda</em> untuk <strong>memperbarui informasi keuangan Anda</strong> dengan organisasi yang relevan dan memastikan <strong>transisi yang lancar</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Kehilangan Histori Transaksi:</strong> Menghapus akun Anda berarti <em>kehilangan permanen</em> semua <strong >catatan transaksi</strong> yang terkait dengan akun tersebut. Informasi ini mungkin <em>penting</em> untuk <strong>tujuan perpajakan, perencanaan keuangan, atau persyaratan hukum</strong>. <strong>sangat disarankan</strong> untuk <strong>mendapatkan dan menyimpan dengan aman</strong> dokumentasi yang diperlukan <strong>sebelum melanjutkan</strong>.</li>\n</ol>\n<p>Kami menanggapi <strong>keamanan finansial</strong> dan <strong>kepuasan</strong> <em>Anda dengan sangat serius</em>, dan kami <strong>menghargai</strong> <strong>kepercayaan Anda yang berkelanjutan </strong> dalam layanan kami. Jika Anda masih ingin melanjutkan penghapusan rekening bank Anda, harap <strong>konfirmasikan permintaan Anda</strong> dengan <strong>menggulir seluruh peringatan ini</strong> dan <strong>mencentang kotak di bawah</strong> .</p>"
+  
 }

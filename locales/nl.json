@@ -90,5 +90,23 @@
 	"trans_not_found": "Geen transacties gevonden",
 	"export_data": "Transactiegegevens exporteren",
 	"account_search": "Account zoeken...",
-	"account_not_found": "Geen accounts gevonden"
+	"account_not_found": "Geen accounts gevonden",
+	"unsupported_framework": "^${renewed_banking} Niet-ondersteund Framework gedetecteerd!",
+	"creating_db": "${renewed_banking} Vernieuwd Banking v2-databaseschema maken",
+	"created_db": "${renewed_banking} vernieuwd Banking v2-databaseschema gemaakt!",
+	"conversion_db": "${renewed_banking} gestart Verlengd bankieren V1 => v2 conversie",
+	"converted_db": "${renewed_banking} Vernieuwd bankieren V1 => v2 Conversie voltooid!",
+	"transactions_copied": "Transacties gekopieerd naar klembord!",
+	"ui_remove_member": "Lid verwijderen",
+	"ui_add_member": "Lid toevoegen",
+	"ui_update_account": "Account-ID bijwerken",
+	"ui_delete_account": "ACCOUNT VERWIJDEREN",
+	"acc_del_scroll_warn": "Lees en blader door de hele waarschuwing voordat u bevestigt!",
+	"acc_del_title": "WAARSCHUWING: ACCOUNT VERWIJDER KENNISGEVING",
+	"acc_deL_confirm": "Ik heb de waarschuwing gelezen en begrepen. Ik bevestig de verwijdering van mijn bankrekening.",
+	"no_member_found": "Geen leden gevonden!",
+	"new_acc_id": "Nieuwe account-ID",
+	"confirm_acc_id": "Account-ID bevestigen",
+	"account_deletion_message": "<p>Beste @{name},</p>\n<p>Dit bericht is hier om u <strong>krachtig</strong> te informeren over uw <em>dringende</em> verzoek om uw bankrekening te verwijderen. Voordat we verder gaan, willen we de significante gevolgen en potentiële risico's van deze <em>cruciale</em> actie <strong>benadrukken</strong>. Gelieve <strong>zorgvuldig</strong> de volgende <em>belangrijke</em> waarschuwing te lezen:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Onomkeerbare actie:</strong> het verwijderen van uw bankrekening is een <em>permanente beslissing</em> die <strong>niet kan ongedaan worden gemaakt</strong>. Zodra het account is gesloten, worden alle bijbehorende gegevens, transactiegeschiedenis en accountgegevens <strong>permanent</strong> uit ons systeem verwijderd.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Verlies van financiële diensten:</strong> door uw account te verwijderen, verliest u de toegang tot <em>alles</em> met betrekking tot uw rekening. U kunt geen <strong>banktransacties</strong> meer uitvoeren.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Gemiste betalingen en verplichtingen:</strong> het verwijderen van uw bankrekening kan leiden tot <em>ernstige storingen</em> in uw financiële verplichtingen. Alle <strong>betalingen in behandeling, automatische afschrijvingen, doorlopende opdrachten of automatische stortingen</strong> die aan uw account zijn gekoppeld, <strong>functioneren</strong> niet meer. Het is <em>uw verantwoordelijkheid</em> om <strong>uw financiële informatie bij te werken</strong> bij relevante organisaties en te zorgen voor een <strong>soepele overgang</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Verlies van transactiegeschiedenis:</strong> het verwijderen van uw account betekent het <em>permanente verlies</em> van alle <strong >transactiegegevens</strong> die aan dat account zijn gekoppeld. Deze informatie kan <em>essentieel</em> zijn voor <strong>belastingdoeleinden, financiële planning of wettelijke vereisten</strong>. Het wordt <strong>sterk aanbevolen</strong> om alle benodigde documentatie <strong>te verkrijgen en veilig op te slaan</strong> <strong>alvorens verder te gaan</strong>.</li>\n</ol>\n<p>We nemen uw <strong>financiële zekerheid</strong> en <strong>tevredenheid</strong> <em>heel serieus</em>, en we <strong>waarderen</strong> uw <strong>voortdurende vertrouwen </strong> in onze diensten. Als u nog steeds wilt doorgaan met het verwijderen van uw bankrekening, <strong>bevestigt u uw verzoek</strong> door <strong>door deze volledige waarschuwing te bladeren</strong> en <strong>het onderstaande vakje aan te vinken</strong> .</p>"
+  
 }

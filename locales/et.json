@@ -90,5 +90,22 @@
 	"trans_not_found": "Tehinguid ei leitud",
 	"export_data": "Ekspordi tehinguandmed",
 	"account_search": "Konto otsing...",
-	"account_not_found": "Ühtegi kontot ei leitud"
+	"account_not_found": "Ühtegi kontot ei leitud",
+	"unsupported_framework": "^${renewed_banking} Tuvastati toetamata raamistik!",
+	"creating_db": "${renewed_banking} Uuendatud pangandus v2 andmebaasiskeemi loomine",
+	"created_db": "${renewed_banking} Uuendatud pangandus v2 andmebaasiskeem loodud!",
+	"conversion_db": "${renewed_banking} Algas uuendatud pangandus V1 => v2 teisendus",
+	"converted_db": "${renewed_banking} Uuendatud pangandus V1 => v2 teisendamine lõpetatud!",
+	"transactions_copied": "Tehingud kopeeriti lõikelauale!",
+	"ui_remove_member": "Eemalda liige",
+	"ui_add_member": "Lisa liige",
+	"ui_update_account": "Värskendage konto ID-d",
+	"ui_delete_account": "KUSTUTA KONTO",
+	"acc_del_scroll_warn": "Enne kinnitamist lugege ja kerige kogu hoiatus läbi!",
+	"acc_del_title": "HOIATUS: KONTO KUSTUTAMISE TEATIS",
+	"acc_deL_confirm": "Olen hoiatuse läbi lugenud ja sellest aru saanud. Kinnitan oma pangakonto kustutamist.",
+	"no_member_found": "Ühtegi liiget ei leitud!",
+	"new_acc_id": "Uus konto ID",
+	"confirm_acc_id": "Kinnitage konto ID",
+	"account_deletion_message": "<p>Lugupeetud @{name},</p>\n<p>See sõnum on siin selleks, et <strong>tugevalt</strong> teavitada teid teie <em>kiireloomulisest</em> taotlusest oma pangakonto kustutada. Enne jätkamist soovime <strong>rõhutada</strong> selle <em>kriitilise</em> tegevusega seotud olulisi tagajärgi ja võimalikke riske. <strong>Vaadake hoolikalt üle</strong> järgmine <em>oluline</em> hoiatus:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Pöördumatu toiming:</strong> pangakonto kustutamine on <em>püsiv otsus</em>, mis <strong>ei saa tühistada</strong>. Kui konto on suletud, kõik seotud andmed, tehinguajalugu ja konto üksikasjad <strong>kustutatakse jäädavalt</strong> meie süsteemist.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Finantsteenuste kaotamine:</strong> konto kustutamisel kaotate juurdepääsu <em>kõigele</em> seoses teie kontoga. Te ei saa enam teha ühtegi <strong>pangatehingut</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Vastamata maksed ja kohustused:</strong> pangakonto kustutamine võib põhjustada <em>tõsisi häireid</em> teie rahalised kohustused. Kõik teie kontoga seotud <strong>ootel maksed, automaatsed deebetid, püsikorraldused või otsemaksed</strong> <strong>lõpetavad toimimise</strong>. <em>Teie kohustus</em> on <strong>värskendada oma finantsteavet</strong> asjakohaste organisatsioonidega ja tagada <strong>sujuv üleminek</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Tehinguajaloo kadumine:</strong> konto kustutamine tähendab kogu <strong>jäävat kaotust</em>. selle kontoga seotud >tehingukirjed</strong>. See teave võib olla <em>oluline</em> <strong>maksueesmärkidel, finantsplaneerimisel või juriidilistes nõuetes</strong>. Kõik vajalikud dokumendid on <strong>soovitav</strong> <strong>hankida ja turvaliselt säilitada</strong> <strong>enne jätkamist</strong>.</li>\n</ol>\n<p>Võtame teie <strong>rahalist kindlustunnet</strong> ja <strong>rahulolu</strong> <em>väga tõsiselt</em> ning <strong>hindame</strong> teie <strong>jätkuvat usaldust </strong> meie teenustes. Kui soovite siiski jätkata oma pangakonto kustutamist, <strong>kinnitage oma taotlus</strong>, <strong>kerides läbi kogu hoiatuse</strong> ja <strong>märkides alloleva ruudu</strong> .</p>"  
 }

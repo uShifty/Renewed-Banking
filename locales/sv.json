@@ -90,5 +90,23 @@
 	"trans_not_found": "Inga transaktioner hittades",
 	"export_data": "Exportera transaktionsdata",
 	"account_search": "Kontosökning...",
-	"account_not_found": "Inga konton hittades"
+	"account_not_found": "Inga konton hittades",
+	"unsupported_framework": "^${renewed_banking} Framework som inte stöds har upptäckts!",
+	"creating_db": "${renewed_banking} Skapar förnyat Banking v2-databasschema",
+	"created_db": "${renewed_banking} Förnyat Banking v2 Databas Schema Skapad!",
+	"conversion_db": "${renewed_banking} Startade Förnyad Banking V1 => v2 Konvertering",
+	"converted_db": "${renewed_banking} Förnyad Banking V1 => v2 Konvertering slutförd!",
+	"transactions_copied": "Transaktioner kopierade till urklipp!",
+	"ui_remove_member": "Ta bort medlem",
+	"ui_add_member": "Lägg till medlem",
+	"ui_update_account": "Uppdatera konto-ID",
+	"ui_delete_account": "RADERA KONTO",
+	"acc_del_scroll_warn": "Läs och scrolla igenom hela varningen innan du bekräftar!",
+	"acc_del_title": "VARNING: MEDDELANDE FÖR RADERING AV KONTO",
+	"acc_deL_confirm": "Jag har läst och förstått varningen. Jag bekräftar raderingen av mitt bankkonto.",
+	"no_member_found": "Inga medlemmar hittades!",
+	"new_acc_id": "Nytt konto-ID",
+	"confirm_acc_id": "Bekräfta konto-ID",
+	"account_deletion_message": "<p>Bästa @{name},</p>\n<p>Det här meddelandet är här för att <strong>kraftigt</strong> informera dig om din <em>brådskande</em> begäran om att radera ditt bankkonto. Innan vi fortsätter vill vi <strong>betona</strong> de betydande konsekvenserna och potentiella riskerna som är förknippade med denna <em>kritiska</em> åtgärd. Vänligen <strong>läs noggrant</strong> följande <em>viktiga</em> varning:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Oåterkallelig åtgärd:</strong> Att ta bort ditt bankkonto är ett <em>permanent beslut</em> som <strong>inte kan ångras</strong>. När kontot har stängts kommer all associerad data, transaktionshistorik och kontodetaljer att <strong>raderas permanent</strong> från vårt system.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Förlust av finansiella tjänster:</strong> Genom att radera ditt konto förlorar du åtkomst till <em>allt</em> i förhållande till ditt konto. Du kommer inte längre att kunna utföra några <strong>banktransaktioner</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Missade betalningar och skyldigheter:</strong> Att radera ditt bankkonto kan leda till <em>allvarliga störningar</em> i din ekonomiska förpliktelser. Alla <strong>väntande betalningar, automatiska debiteringar, stående order eller direktinsättningar</strong> som är kopplade till ditt konto kommer att <strong>upphöra att fungera</strong>. Det är <em>ditt ansvar</em> att <strong>uppdatera din ekonomiska information</strong> med relevanta organisationer och säkerställa en <strong>smidig övergång</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Förlust av transaktionshistorik:</strong> Att ta bort ditt konto innebär <em>permanent förlust</em> av alla <strong >transaktionsposter</strong> som är kopplade till det kontot. Denna information kan vara <em>viktig</em> för <strong>skatteändamål, ekonomisk planering eller juridiska krav</strong>. Det är <strong>rekommenderas starkt</strong> att <strong>skaffa och lagra</strong> all nödvändig dokumentation <strong>innan du fortsätter</strong>.</li>\n</ol>\n<p>Vi tar din <strong>ekonomiska säkerhet</strong> och <strong>tillfredsställelse</strong> <em>mycket allvarligt</em> och vi <strong>uppskattar</strong> ditt <strong>fortsatta förtroende </strong> i våra tjänster. Om du fortfarande vill fortsätta med raderingen av ditt bankkonto <strong>bekräfta din begäran</strong> genom att <strong>rulla igenom hela denna varning</strong> och <strong>markera rutan nedan</strong> .</p>"
+  
 }

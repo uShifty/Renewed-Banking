@@ -90,5 +90,23 @@
 	"trans_not_found": "Aucune transaction trouvée",
 	"export_data": "Exporter les données de transaction",
 	"account_search": "Recherche de compte...",
-	"account_not_found": "Aucun compte trouvé"
+	"account_not_found": "Aucun compte trouvé",
+	"unsupported_framework": "^${renewed_banking} Framework non pris en charge détecté !",
+	"creating_db": "${renewed_banking} Création du schéma de base de données Renewed Banking v2",
+	"created_db": "${renewed_banking} Le schéma de base de données bancaire v2 renouvelé a été créé !",
+	"conversion_db": "${renewed_banking} a démarré la version 1 de la banque renouvelée => conversion v2",
+	"converted_db": "${renewed_banking} Renewed Banking V1 => Conversion v2 terminée !",
+	"transactions_copied": "Transactions copiées dans le presse-papier !",
+	"ui_remove_member": "Supprimer le membre",
+	"ui_add_member": "Ajouter un membre",
+	"ui_update_account": "Mettre à jour l'ID de compte",
+	"ui_delete_account": "SUPPRIMER LE COMPTE",
+	"acc_del_scroll_warn": "Veuillez lire et faire défiler l'intégralité de l'avertissement avant de confirmer !",
+	"acc_del_title": "AVERTISSEMENT : AVIS DE SUPPRESSION DE COMPTE",
+	"acc_deL_confirm": "J'ai lu et compris l'avertissement. Je confirme la suppression de mon compte bancaire.",
+	"no_member_found": "Aucun membre trouvé !",
+	"new_acc_id": "Nouvel identifiant de compte",
+	"confirm_acc_id": "Confirmer l'ID du compte",
+	"account_deletion_message": "<p>Cher @{name},</p>\n<p>Ce message est là pour vous informer <strong>fortement</strong> de votre demande <em>urgente</em> de suppression de votre compte bancaire. Avant de poursuivre, nous souhaitons <strong>souligner</strong> les conséquences importantes et les risques potentiels associés à cette action <em>critique</em>. Veuillez <strong>lire attentivement</strong> l'avertissement <em>important</em> suivant :</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Action irréversible :</strong> la suppression de votre compte bancaire est une <em>décision permanente</em> qui <strong>ne peut être annulé</strong>. Une fois le compte fermé, toutes les données associées, l'historique des transactions et les détails du compte seront <strong>effacés définitivement</strong> de notre système.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Perte de services financiers :</strong> en supprimant votre compte, vous perdrez l'accès à <em>tout</em> par rapport à votre compte. Vous ne pourrez plus effectuer de <strong>transactions bancaires</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Paiements et obligations manqués :</strong> la suppression de votre compte bancaire peut entraîner <em>de graves perturbations</em> dans votre obligations financières. Tous les <strong>paiements en attente, prélèvements automatiques, ordres permanents ou dépôts directs</strong> associés à votre compte <strong>cesseront de fonctionner</strong>. Il est de <em>votre responsabilité</em> de <strong>mettre à jour vos informations financières</strong> avec les organisations concernées et d'assurer une <strong>transition en douceur</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Perte de l'historique des transactions :</strong> la suppression de votre compte signifie la <em>perte permanente</em> de tous les <strong >enregistrements transactionnels</strong> associés à ce compte. Ces informations peuvent être <em>essentielles</em> à des fins <strong>fiscales, de planification financière ou d'exigences légales</strong>. Il est <strong>fortement recommandé</strong> d'<strong>obtenir et de stocker en toute sécurité</strong> tous les documents nécessaires <strong>avant de poursuivre</strong>.</li>\n</ol>\n<p>Nous prenons votre <strong>sécurité financière</strong> et votre <strong>satisfaction</strong> <em>très au sérieux</em>, et nous <strong>apprécions</strong> votre <strong>confiance continue </strong> dans nos services. Si vous souhaitez toujours procéder à la suppression de votre compte bancaire, veuillez <strong>confirmer votre demande</strong> en <strong>parcourant cet avertissement dans son intégralité</strong> et en <strong>cochant la case ci-dessous</strong> .</p>"
+  
 }

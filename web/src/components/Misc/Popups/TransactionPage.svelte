@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { accounts, activeAccount, popupDetails, loading, translations } from "../../../store/stores";
+    import { accounts, activeAccount, popupDetails, loading, translations, Player } from "../../../store/stores";
     import { fetchNui } from "../../../utils/fetchNui";
 	import type  { accountType } from "../../../types/types";
   
@@ -21,40 +21,67 @@
     async function submitInput() {
         loading.set(true);
         try {
-            const accountId = $popupDetails.account.id;
             const retData = await fetchNui($popupDetails.actionType, {
-                fromAccount: accountId,
+                fromAccount: account.id,
                 amount: amount,
                 comment: comment,
                 stateid: stateid
             });
-            
+
             if (retData !== false) {
-                accounts.update((arr) => {
-                    return arr.map((mapAccount: accountType) => {
-                        if (mapAccount.id === retData.player.account) {
-                            if (retData.cash) {
-                                return { ...mapAccount, cash: retData.player.cash };
-                            }
+                const updateAccount = (arr: accountType[], id: string, updates: Partial<accountType>): accountType[] => {
+                    return arr.map((account: accountType) => {
+                        if (account.id === id) {
+                            return { ...account, ...updates };
                         }
-                        if (retData.primary && mapAccount.id === retData.primary.account) {
-                            return {
-                                ...mapAccount,
-                                amount: retData.primary.bank,
-                                transactions: retData.primary.trans ? [retData.primary.trans, ...(mapAccount.transactions || [])] : mapAccount.transactions,
-                            };
-                        }
-                        if (retData.secondary && mapAccount.id === retData.secondary.account) {
-                            return {
-                                ...mapAccount,
-                                amount: retData.secondary.bank,
-                                transactions: retData.secondary.trans ? [retData.secondary.trans, ...(mapAccount.transactions || [])] : mapAccount.transactions,
-                            };
-                        }
-                        return mapAccount;
+                        return account;
                     });
-                });
+                };
+
+                const sourceAccount = $accounts.find((a: accountType) => a.id === account.id) || { id: account.id, cash: 0, amount: 0, transactions: [] };
+                const playerAccount = $accounts.find((a: accountType) => a.id === $Player.id) || { id: $Player.id, cash: 0, amount: 0, transactions: [] };
+
+                if ($popupDetails.actionType === 'withdraw') {
+                    const sourceUpdates = {
+                        amount: (sourceAccount.amount || 0) - amount,
+                        transactions: retData ? [retData, ...(sourceAccount.transactions || [])] : sourceAccount.transactions,
+                    };
+
+                    const playerUpdates = {
+                        cash: (playerAccount.cash || 0) + amount,
+                    };
+
+                    accounts.update((arr: accountType[]) => updateAccount(arr, account.id, sourceUpdates));
+                    accounts.update((arr: accountType[]) => updateAccount(arr, $Player.id, playerUpdates));
+                } else if ($popupDetails.actionType === 'deposit') {
+                    const sourceUpdates = {
+                        cash: (sourceAccount.cash || 0) - amount,
+                        amount: (sourceAccount.amount || 0) + amount,
+                        transactions: retData ? [retData, ...(sourceAccount.transactions || [])] : sourceAccount.transactions,
+                    };
+
+                    const playerUpdates = {
+                        cash: (playerAccount.cash || 0) - amount,
+                    };
+
+                    accounts.update((arr: accountType[]) => updateAccount(arr, account.id, sourceUpdates));
+                    accounts.update((arr: accountType[]) => updateAccount(arr, $Player.id, playerUpdates));
+                } else if ($popupDetails.actionType === 'transfer') {
+                    const sourceUpdates = {
+                        amount: (sourceAccount.amount || 0) - amount,
+                        transactions: retData ? [retData, ...(sourceAccount.transactions || [])] : sourceAccount.transactions,
+                    };
+
+                    const targetAccount = $accounts.find((a: accountType) => a.id === stateid) || { id: stateid, cash: 0, amount: 0, transactions: [] };
+                    const targetUpdates = {
+                        amount: (targetAccount.amount || 0) + amount,
+                    };
+
+                    accounts.update((arr: accountType[]) => updateAccount(arr, account.id, sourceUpdates));
+                    accounts.update((arr: accountType[]) => updateAccount(arr, stateid, targetUpdates));
+                }
             }
+
         } catch (error) {
             console.error('Error:', error);
         } finally {

@@ -4,7 +4,6 @@
     import { fetchNui } from "../../../utils/fetchNui";
     import { createEventDispatcher } from 'svelte';
   
-    const dispatch = createEventDispatcher();
   
     let memberId: string = "";
   
@@ -21,26 +20,10 @@
     async function submitInput() {
       loading.set(true);
       try {
-        console.log('AddMemberPage')
-        console.log(account.id, memberId)
         const retData = await fetchNui($popupDetails.actionType, {
           accountID: account.id,
           memberID: memberId
         });
-  
-        if (retData !== false) {
-          accounts.update((arr) => {
-            return arr.map((mapAccount: accountType) => {
-              if (mapAccount.id === account.id) {
-                return {
-                  ...mapAccount,
-                  members: retData.members
-                };
-              }
-              return mapAccount;
-            });
-          });
-        }
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -51,10 +34,10 @@
   </script>
   
   <section class="popup-content">
-    <h2>{account.id}: Add Member</h2>
+    <h2>{account.id}: {$translations.ui_add_member}</h2>
     <form action="#">
       <div class="form-row">
-        <label for="memberId">Member ID (Character Or Server ID)</label>
+        <label for="memberId">{$translations.citizen_id}</label>
         <input bind:value={memberId} type="text" name="memberId" id="memberId" placeholder="" />
       </div>
   

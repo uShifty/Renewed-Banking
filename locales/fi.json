@@ -90,5 +90,23 @@
   "trans_not_found": "Tapahtumia ei löytynyt",
   "export_data": "Vie tapahtumatiedot",
   "account_search": "Tilihaku...",
-  "account_not_found": "Tilejä ei löytynyt"
+  "account_not_found": "Tilejä ei löytynyt",
+  "unsupported_framework": "^${renewed_banking} Tuettu kehys havaittu!",
+  "creating_db": "${renewed_banking} Luodaan Renewed Banking v2 -tietokantaskeema",
+  "created_db": "${renewed_banking} Renewed Banking v2 -tietokantakaavio luotu!",
+  "conversion_db": "${renewed_banking} Uusittu pankkipalvelu V1 => v2-muunnos",
+  "converted_db": "${renewed_banking} Renewed Banking V1 => v2-muunnos valmis!",
+  "transactions_copied": "Tapahtumat kopioitu leikepöydälle!",
+  "ui_remove_member": "Poista jäsen",
+  "ui_add_member": "Lisää jäsen",
+  "ui_update_account": "Päivitä tilitunnus",
+  "ui_delete_account": "POISTA TILI",
+  "acc_del_scroll_warn": "Lue ja selaa koko varoitus ennen vahvistamista!",
+  "acc_del_title": "VAROITUS: TILIN POISTAMINEN",
+  "acc_deL_confirm": "Olen lukenut ja ymmärtänyt varoituksen. Vahvistan pankkitilini poistamisen.",
+  "no_member_found": "Jäseniä ei löytynyt!",
+  "new_acc_id": "Uusi tilitunnus",
+  "confirm_acc_id": "Vahvista tilin tunnus",
+  "account_deletion_message": "<p>Hei @{name},</p>\n<p>Tämän viestin tarkoituksena on <strong>vahvasti</strong> ilmoittaa sinulle <em>kiireellisestä</em> pyynnöstäsi poistaa pankkitilisi. Ennen kuin jatkamme, haluamme <strong>korostaa</strong> tähän <em>kriittiseen</em> toimintaan liittyviä merkittäviä seurauksia ja mahdollisia riskejä. <strong>Tarkista huolellisesti</strong> seuraava <em>tärkeä</em> varoitus:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Peruuttamaton toimenpide:</strong> Pankkitilin poistaminen on <em>pysyvä päätös</em>, jota <strong>ei voi peruuttaa</strong>. Kun tili on suljettu, kaikki siihen liittyvät tiedot, tapahtumahistoria ja tilitiedot <strong>poistetaan pysyvästi</strong> järjestelmästämme.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Rahoituspalvelujen menettäminen:</strong> Jos poistat tilisi, menetät pääsyn <em>kaikkiin</em> suhteessa tiliisi. Et voi enää suorittaa <strong>pankkitapahtumia</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Maksamatta jääneet maksut ja velvoitteet:</strong> Pankkitilin poistaminen voi aiheuttaa <em>vakavia häiriöitä</em> taloudelliset velvoitteet. Kaikki tiliisi liittyvät <strong>odottavat maksut, automaattiset veloitukset, kestotilaukset tai suorat talletukset</strong> <strong>lakkaavat toimimasta</strong>. On <em>sinun vastuullasi</em> <strong>päivittää taloustietosi</strong> asiaankuuluvien organisaatioiden kanssa ja varmistaa <strong>sujuva siirtyminen</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Tapahtumahistorian menettäminen:</strong> Tilisi poistaminen tarkoittaa <em>pysyvää menetystä</em> kaikesta <strong> >tapahtumatietueet</strong>, jotka liittyvät kyseiseen tiliin. Nämä tiedot voivat olla <em>välttämättömiä</em> <strong>verotarkoituksiin, taloussuunnitteluun tai lakisääteisiin vaatimuksiin</strong>. <strong>On erittäin suositeltavaa</strong> <strong>hankkia ja säilyttää turvallisesti</strong> kaikki tarvittavat asiakirjat <strong>ennen kuin jatkat</strong>.</li>\n</ol>\n<p>Suhtaudumme <strong>taloudelliseen turvaasi</strong> ja <strong>tyytyväisyytesi</strong> <em>erittäin vakavasti</em>, ja <strong>arvostamme</strong> <strong>jatkuvaa luottamustasi </strong> palveluissamme. Jos haluat silti jatkaa pankkitilisi poistamista, <strong>vahvista pyyntösi</strong> <strong>selaamalla koko varoitus</strong> ja <strong>valitsemalla alla oleva valintaruutu</strong> .</p>"
+
 }

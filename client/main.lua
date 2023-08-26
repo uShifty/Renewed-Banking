@@ -2,14 +2,13 @@ local isVisible, FullyLoaded = false, false
 local progressBar = Config.progressbar == 'circle' and lib.progressCircle or lib.progressBar
 local PlayerPed = cache.ped
 local require = lib.require
-local Framework = require('client.framework')
 
 if Config.framework == 'qb'then
     FullyLoaded = LocalPlayer.state.isLoggedIn or false
 elseif Config.framework == 'esx'then
     FullyLoaded = exports['es_extended']:getSharedObject().PlayerLoaded or false
 else
-	print('^6[^3Renewed-Banking^6]^0 Unsupported Framework detected!')
+	print(locale('unsupported_framework'))
 end
 
 local Target
@@ -20,7 +19,7 @@ elseif Config.target == 'qb' then
 end
 
 local pedSpawned = false
-local peds = {basic = {}, adv ={}}
+local peds = {}
 local blips = {}
 
 AddStateBagChangeHandler('isLoggedIn', nil, function(_, _, value)
@@ -59,15 +58,11 @@ end)
 
 local function DeletePeds()
     if not pedSpawned then return end
-    local k=1
-    for x,v in pairs(peds)do
-        for i=1, #v do
-            DeletePed(v[i])
-            RemoveBlip(blips[k])
-            k += 1
-        end
-        peds[x] = {}
+    for k=1, #peds do
+        DeletePed(peds[k])
+        RemoveBlip(blips[k])
     end
+    peds = {}
 end
 
 AddEventHandler('QBCore:Client:OnPlayerUnload', function()
@@ -97,9 +92,6 @@ local function openBankUI(isAtm)
         lib.notify({title = locale('bank_name'), description = locale('loading_failed'), type = 'error'})
         return
     end
-
-    local playerMoney = Framework.getMoney()
-    accounts[1].cash, accounts[1].amount = playerMoney[1], playerMoney[2]
 
     SetTimeout(1000, function()
         SendNUIMessage({
@@ -144,6 +136,11 @@ RegisterNUICallback('getTransactions', function(data, cb)
     cb(transactions)
 end)
 
+RegisterNUICallback('getMembers', function(data, cb)
+    local members = lib.callback.await('Renewed-Banking:server:getMembers', false, data.account)
+    cb(members)
+end)
+
 RegisterCommand('closeBankUI', function() nuiHandler(false) end, false)
 
 local bankActions = {'deposit', 'withdraw', 'transfer'}
@@ -152,20 +149,14 @@ CreateThread(function ()
         RegisterNUICallback(bankActions[k], function(data, cb)
             local newTransaction = lib.callback.await('Renewed-Banking:server:'..bankActions[k], false, data)
             if not newTransaction then return cb(false) end
-            local playerMoney = Framework.getMoney()
-
-            newTransaction.cash = playerMoney[1]
-            if not newTransaction.bank then
-                newTransaction.bank = playerMoney[2]
-            end
             cb(newTransaction)
         end)
     end
 end)
 
-RegisterNUICallback('createAccount', function(data, cb)
-    data.accountID = data.accountID:upper():gsub("%s+", "")
-    local accountCreated = lib.callback.await('Renewed-Banking:server:createNewAccount', false, data.accountID)
+RegisterNUICallback('createaccount', function(data, cb)
+    data.id = data.id:upper():gsub("%s+", "")
+    local accountCreated = lib.callback.await('Renewed-Banking:server:createNewAccount', false, data.id)
     cb(accountCreated)
 end)
 
@@ -203,7 +194,8 @@ function CreatePeds()
         FreezeEntityPosition(bankPed, true)
         SetEntityInvincible(bankPed, true)
         SetBlockingOfNonTemporaryEvents(bankPed, true)
-        table.insert(Config.peds[k].createAccounts and peds.adv or peds.basic, bankPed)
+
+        peds[#peds+1] = bankPed
 
         blips[k] = AddBlipForCoord(coords.x, coords.y, coords.z-1)
         SetBlipSprite(blips[k], 108)

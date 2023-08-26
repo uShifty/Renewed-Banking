@@ -90,5 +90,23 @@
 	"trans_not_found": "Nema pronađenih transakcija",
 	"export_data": "Izvoz podataka o transakciji",
 	"account_search": "Pretraživanje računa...",
-	"account_not_found": "Nema pronađenih računa"
+	"account_not_found": "Nema pronađenih računa",
+	"unsupported_framework": "^${renewed_banking} Otkriven nepodržani okvir!",
+	"creating_db": "${renewed_banking} Stvaranje Renewed Banking v2 sheme baze podataka",
+	"created_db": "${renewed_banking} Stvorena shema baze podataka Renewed Banking v2!",
+	"conversion_db": "${renewed_banking} Započelo obnovljeno bankarstvo V1 => v2 pretvorbu",
+	"converted_db": "${renewed_banking} Obnovljeno bankarstvo V1 => v2 konverzija dovršena!",
+	"transactions_copied": "Transakcije kopirane u međuspremnik!",
+	"ui_remove_member": "Ukloni člana",
+	"ui_add_member": "Dodaj člana",
+	"ui_update_account": "Ažurirajte ID računa",
+	"ui_delete_account": "IZBRIŠI RAČUN",
+	"acc_del_scroll_warn": "Prije potvrde pročitajte i prolistajte cijelo upozorenje!",
+	"acc_del_title": "UPOZORENJE: OBAVIJEST O BRISANJU RAČUNA",
+	"acc_deL_confirm": "Pročitao sam i razumio sam upozorenje. Potvrđujem brisanje svog bankovnog računa.",
+	"no_member_found": "Nema pronađenih članova!",
+	"new_acc_id": "ID novog računa",
+	"confirm_acc_id": "Potvrdite ID računa",
+	"account_deletion_message": "<p>Dragi @{name},</p>\n<p>Ova poruka je ovdje da vas <strong>strogo</strong> obavijesti o vašem <em>hitnom</em> zahtjevu za brisanjem vašeg bankovnog računa. Prije nego što nastavimo, želimo <strong>naglasiti</strong> značajne posljedice i potencijalne rizike povezane s ovom <em>kritičnom</em> radnjom. <strong>Pažljivo pregledajte</strong> sljedeće <em>važno</em> upozorenje:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Nepovratna radnja:</strong> Brisanje vašeg bankovnog računa je <em>trajna odluka</em> koja <strong>ne može biti poništen</strong>. Nakon što se račun zatvori, svi povezani podaci, povijest transakcija i detalji računa bit će <strong>trajno izbrisani</strong> iz našeg sustava.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Gubitak financijskih usluga:</strong> Brisanjem računa izgubit ćete pristup <em>svemu</em> u odnosu na vaš račun. Više nećete moći obavljati <strong>bankarske transakcije</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Propuštena plaćanja i obveze:</strong> Brisanje vašeg bankovnog računa može dovesti do <em>ozbiljnih poremećaja</em> u financijske obveze. Sva <strong>plaćanja na čekanju, automatska zaduženja, trajni nalozi ili izravni depoziti</strong> povezani s vašim računom <strong>prestat će funkcionirati</strong>. <em>Vaša je odgovornost</em> da <strong>ažurirate svoje financijske podatke</strong> s relevantnim organizacijama i osigurate <strong>glatku tranziciju</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Gubitak povijesti transakcija:</strong> Brisanje vašeg računa znači <em>trajni gubitak</em> svih <strong >transakcijska evidencija</strong> povezana s tim računom. Ove informacije mogu biti <em>bitne</em> za <strong>porezne svrhe, financijsko planiranje ili pravne zahtjeve</strong>. <strong>Toplo se preporučuje</strong> <strong>nabaviti i sigurno pohraniti</strong> svu potrebnu dokumentaciju <strong>prije nastavka</strong>.</li>\n</ol>\n<p>Vašu <strong>financijsku sigurnost</strong> i <strong>zadovoljstvo</strong> <em>shvaćamo vrlo ozbiljno</em> i <strong>cijenimo</strong> vaše <strong>stalno povjerenje </strong> u našim uslugama. Ako i dalje želite nastaviti s brisanjem svog bankovnog računa, <strong>potvrdite svoj zahtjev</strong> tako što ćete <strong>pregledati ovo cijelo upozorenje</strong> i <strong>označiti okvir u nastavku</strong> .</p>"
+  
 }

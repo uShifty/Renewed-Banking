@@ -90,5 +90,22 @@
 	"trans_not_found": "Nessuna transazione trovata",
 	"export_data": "Esporta i dati della transazione",
 	"account_search": "Cerca conto...",
-	"account_not_found": "Nessun account trovato"
+	"account_not_found": "Nessun account trovato",
+	"unsupported_framework": "^${renewed_banking} Framework non supportato rilevato!",
+	"creating_db": "${renewed_banking} Creazione dello schema del database di Renewed Banking v2",
+	"created_db": "${renewed_banking} Creato lo schema del database Banking v2 rinnovato!",
+	"conversion_db": "${renewed_banking} Avviato Rinnovato Banking V1 => Conversione v2",
+	"converted_db": "${renewed_banking} Banking rinnovato V1 => Conversione v2 completata!",
+	"transactions_copied": "Transazioni copiate negli appunti!",
+	"ui_remove_member": "Rimuovi membro",
+	"ui_add_member": "Aggiungi membro",
+	"ui_update_account": "Aggiorna ID account",
+	"ui_delete_account": "ELIMINARE L'ACCOUNT",
+	"acc_del_scroll_warn": "Si prega di leggere e scorrere l'intero avviso prima di confermare!",
+	"acc_del_title": "ATTENZIONE: AVVISO DI CANCELLAZIONE DELL'ACCOUNT",
+	"acc_deL_confirm": "Ho letto e compreso l'avviso. Confermo la cancellazione del mio conto bancario.",
+	"no_member_found": "Nessun membro trovato!",
+	"new_acc_id": "Nuovo ID account",
+	"confirm_acc_id": "Conferma ID account",
+	"account_deletion_message": "<p>Caro @{name},</p>\n<p>Questo messaggio è qui per informarti <strong>fortemente</strong> della tua richiesta <em>urgente</em> di cancellazione del tuo conto bancario. Prima di procedere, vogliamo <strong>sottolineare</strong> le conseguenze significative e i potenziali rischi associati a questa azione <em>critica</em>. Si prega di <strong>esaminare attentamente</strong> il seguente avviso <em>importante</em>:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Azione irreversibile:</strong> l'eliminazione del tuo conto bancario è una <em>decisione permanente</em> che <strong>non può essere annullato</strong>. Una volta chiuso l'account, tutti i dati associati, la cronologia delle transazioni e i dettagli dell'account verranno <strong>cancellati definitivamente</strong> dal nostro sistema.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Perdita di servizi finanziari:</strong> eliminando il tuo account, perderai l'accesso a <em>tutto</em> in relazione al tuo account. Non potrai più eseguire <strong>transazioni bancarie</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Mancati pagamenti e obblighi:</strong> l'eliminazione del tuo conto bancario può portare a <em>gravi interruzioni</em> nel tuo obblighi finanziari. Eventuali <strong>pagamenti in sospeso, addebiti automatici, ordini permanenti o versamenti diretti</strong> associati al tuo conto <strong>cesseranno di funzionare</strong>. È <em>tua responsabilità</em> <strong>aggiornare le tue informazioni finanziarie</strong> con le organizzazioni pertinenti e garantire una <strong>transizione agevole</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Perdita della cronologia delle transazioni:</strong> l'eliminazione del tuo account comporta la <em>perdita permanente</em> di tutte le <strong >record transazionali</strong> associati a quell'account. Queste informazioni potrebbero essere <em>essenziali</em> per <strong>scopi fiscali, pianificazione finanziaria o requisiti legali</strong>. È <strong>fortemente consigliato</strong> <strong>ottenere e conservare in modo sicuro</strong> tutta la documentazione necessaria <strong>prima di procedere</strong>.</li>\n</ol>\n<p>Prendiamo la tua <strong>sicurezza finanziaria</strong> e <strong>soddisfazione</strong> <em>molto sul serio</em> e <strong>apprezziamo</strong> la tua <strong>fiducia continua </strong> nei nostri servizi. Se desideri comunque procedere con la cancellazione del tuo conto bancario, <strong>conferma la tua richiesta</strong> <strong>scorrendo l'intero avviso</strong> e <strong>selezionando la casella sottostante</strong> .</p>"  
 }

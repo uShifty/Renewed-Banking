@@ -90,5 +90,23 @@
 	"trans_not_found": "İşlem bulunamadı",
 	"export_data": "İşlem Verilerini Dışa Aktar",
 	"account_search": "Hesap Arama...",
-	"account_not_found": "Hesap bulunamadı"
+	"account_not_found": "Hesap bulunamadı",
+	"unsupported_framework": "^${renewed_banking} Desteklenmeyen Çerçeve algılandı!",
+	"creating_db": "${renewed_banking} Yenilenmiş Bankacılık v2 Veritabanı Şeması Oluşturma",
+	"created_db": "${renewed_banking} Yenilenen Bankacılık v2 Veritabanı Şeması Oluşturuldu!",
+	"conversion_db": "${renewed_banking} Yenilenen Bankacılık V1'i Başlattı => v2 Dönüşümü",
+	"converted_db": "${renewed_banking} Yenilenen Bankacılık V1 => v2 Dönüşümü Tamamlandı!",
+	"transactions_copied": "İşlemler panoya kopyalandı!",
+	"ui_remove_member": "Üye Kaldır",
+	"ui_add_member": "Üye ekle",
+	"ui_update_account": "Hesap Kimliğini Güncelle",
+	"ui_delete_account": "HESABI SİL",
+	"acc_del_scroll_warn": "Lütfen onaylamadan önce tüm uyarıyı okuyun ve kaydırın!",
+	"acc_del_title": "UYARI: HESAP SİLİNME BİLDİRİMİ",
+	"acc_deL_confirm": "Uyarıyı okudum ve anladım. Banka hesabımın silinmesini onaylıyorum.",
+	"no_member_found": "Üye Bulunamadı!",
+	"new_acc_id": "Yeni Hesap Kimliği",
+	"confirm_acc_id": "Hesap Kimliğini Onaylayın",
+	"account_deletion_message": "<p>Sevgili @{name},</p>\n<p>Bu mesaj, banka hesabınızı silmeye yönelik <em>acil</em> talebiniz hakkında sizi <strong>kesinlikle</strong> bilgilendirmek için gönderilmiştir. Devam etmeden önce, bu <em>kritik</em> eylemle ilişkili önemli sonuçları ve potansiyel riskleri <strong>vurgulamak</strong> istiyoruz. Lütfen aşağıdaki <em>önemli</em> uyarıyı <strong>dikkatlice inceleyin</strong>:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Geri Dönülemez İşlem:</strong> Banka hesabınızı silmek <em>kalıcı bir karardır</em> ve <strong>silinemez geri alınabilir</strong>. Hesap kapatıldığında, ilişkili tüm veriler, işlem geçmişi ve hesap ayrıntıları sistemimizden <strong>kalıcı olarak silinir</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Mali Hizmetlerin Kaybı:</strong> Hesabınızı silerek <em>her şeye</em> erişiminizi kaybedersiniz hesabınızla ilgili olarak. Artık herhangi bir <strong>bankacılık işlemi</strong> gerçekleştiremeyeceksiniz.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Kaçırılan Ödemeler ve Yükümlülükler:</strong> Banka hesabınızı silmek, hesabınızda <em>ciddi kesintilere</em> neden olabilir. mali yükümlülükler. Hesabınızla ilişkili tüm <strong>bekleyen ödemeler, otomatik ödemeler, bekleyen siparişler veya doğrudan para yatırma</strong> <strong>işlevlerini durduracaktır</strong>. İlgili kuruluşlarla <strong>finansal bilgilerinizi güncellemek</strong> ve <strong>sorunsuz bir geçiş</strong> sağlamak <em>sizin sorumluluğunuzdadır</em>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> İşlem Geçmişinin Kaybı:</strong> Hesabınızın silinmesi, tüm <strong>hesabınızın <em>kalıcı kaybı</em> anlamına gelir o hesapla ilişkili >işlem kayıtları</strong>. Bu bilgiler, <strong>vergi amaçları, finansal planlama veya yasal gereksinimler</strong> için <em>gerekli</em> olabilir. <strong>Devam etmeden önce</strong> gerekli tüm belgeleri <strong>elde etmeniz ve güvenli bir şekilde saklamanız</strong> <strong>şiddetle önerilir</strong>.</li>\n</ol>\n<p><strong>Mali güvenliğinizi</strong> ve <strong>memnuniyetinizi</strong> <em>çok ciddiye</em> alıyoruz ve <strong>devam eden güveninizi <strong>takdir ediyoruz</strong> </strong> hizmetlerimizde. Hala banka hesabınızın silinmesine devam etmek istiyorsanız, lütfen <strong>bu uyarının tamamını kaydırarak</strong> ve <strong>aşağıdaki kutuyu işaretleyerek</strong> <strong>isteğinizi onaylayın</strong> .</p>"
+  
 }

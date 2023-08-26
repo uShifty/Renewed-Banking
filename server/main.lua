@@ -1,13 +1,7 @@
-local cachedAccounts = {}
-local cachedPlayers = {}
-
--- rewritten code --
 local db = require('modules.db')
-local tempAccount = require('server.accounts')
+local Accounts = require('modules.accounts')
+local Framework = require('modules.framework')
 local Utils = require('modules.utils.server')
-local Framework = require('server.newFramework')
-local table = lib.table
-
 local playerAccess = {}
 
 function UpdatePlayerAccount(source)
@@ -15,8 +9,8 @@ function UpdatePlayerAccount(source)
 
     source = tonumber(source)
 
-    tempAccount.addPlayerAccount(source)
-    local left = tempAccount(source)
+    Accounts.AddPlayer(source)
+    local left = Accounts(source)
     if not left then return end -- A error happened and player didnt get added to the table
 
     local access = { left }
@@ -28,7 +22,7 @@ function UpdatePlayerAccount(source)
         for i = 1, #playerAccounts do
             local actualAccount = playerAccounts[i].account or playerAccounts[i]
 
-            local acc = tempAccount(actualAccount)
+            local acc = Accounts(actualAccount)
 
             if acc then
                 numAccounts += 1
@@ -37,8 +31,48 @@ function UpdatePlayerAccount(source)
         end
     end
 
+    local Groups = Framework.getGroups(source)
+    for group, grade in pairs (Groups) do
+        if Framework.isGroupAuth(group, grade) then
+            local account = Accounts(group)
+            if account then
+                numAccounts += 1
+                access[numAccounts] = account
+            end
+        end
+    end
+
     playerAccess[source] = access
 end
+
+function ExportHandler(resource, name, cb)
+    AddEventHandler(('__cfx_export_%s_%s'):format(resource, name), function(setCB)
+        setCB(cb)
+    end)
+end
+
+AddEventHandler('Renewed-Lib:server:JobUpdate', function(source, oldGroup, newGroup, grade)
+    for k=1, #playerAccess[source] do
+        if playerAccess[source][k].id == oldGroup then
+            table.remove(playerAccess[source], k)
+            local group = Accounts(newGroup)
+            if group and Framework.isGroupAuth(newGroup, grade) then
+                playerAccess[source][#playerAccess[source]+1] = group
+            end
+        end
+    end
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+    Wait(250)
+    if resourceName == GetCurrentResourceName() then
+        Framework.init()
+        for _, sourceId in ipairs(GetPlayers()) do
+            UpdatePlayerAccount(sourceId)
+            Wait(69)
+        end
+    end
+end)
 
 lib.callback.register('renewed-banking:server:getPlayerData', function(source)
     local PlayerData = {
@@ -49,6 +83,10 @@ lib.callback.register('renewed-banking:server:getPlayerData', function(source)
 end)
 
 lib.callback.register('renewed-banking:server:initalizeBanking', function(source)
+    local charID = Framework.getCharId(source)
+    playerAccess[source][1].cash = Framework.getMoney(source, 'cash')
+    playerAccess[source][1].amount = Framework.getMoney(source, 'bank')
+    playerAccess[source][1].transactions = db.getTransactions(charID)
     return playerAccess[source]
 end)
 
@@ -85,40 +123,44 @@ lib.callback.register('Renewed-Banking:server:deposit', function(source, data)
     local amount = tonumber(data.amount)
 
     if not amount or amount < 1 then
-        Notify(source, {title = locale("bank_name"), description = locale("invalid_amount", "deposit"), type = "error"})
+        Utils.sendNotif(source, {title = locale("bank_name"), description = locale("invalid_amount", "deposit"), type = "error"})
         return false
     end
 
-    local left = tempAccount(source)
+    local left = Accounts(source)
 
-    if not left then return end
+    if not left then
+        return
+    end
 
     local secondAccount = left.id == data.fromAccount and source or data.fromAccount
 
-    local right = secondAccount ~= source and tempAccount(secondAccount) or left
+    local right = secondAccount ~= source and Accounts(secondAccount) or left
 
-    if secondAccount ~= source and right == left then return end
+    if secondAccount ~= source and right == left then
+        return
+    end
 
     data.comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", left.name, "deposited", amount)
 
-    local success = tempAccount.removeCash(source, amount, data.comment)
+    local success = Accounts.removeCash(source, amount, data.comment)
 
-    if not success then Utils.sendNotif(source, locale("not_enough_money")) print("HERE MAYBE?") return end
+    if not success then
+        Utils.sendNotif(source, locale("not_enough_money"))
+        return
+    end
 
     local transaction = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, data.comment, left.name, right.id, "deposit")
 
-    local newBank = tempAccount.addMoney(secondAccount, amount, data.comment)
-
+    Accounts.addMoney(secondAccount, amount, data.comment)
 
     -- So this returnData needs to return the NEW BANK BALANCE of the ACCOUNT that you just deposited into
-    local returnData = type(newBank) == 'table' and {trans = transaction, bank = newBank.amount} or {trans = transaction}
-
-    return returnData
+    return transaction
 end)
 
 
 function GetAccountMoney(account)
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then
         print(locale("invalid_account", account))
         return false
@@ -128,35 +170,22 @@ end
 exports('getAccountMoney', GetAccountMoney)
 
 function AddAccountMoney(account, amount)
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then
         locale("invalid_account", account)
         return false
     end
-    tempAccount.addMoney(account, amount)
+    Accounts.addMoney(account, amount)
     db.setBankBalance(account, acc.amount)
     return true
 end
 exports('addAccountMoney', AddAccountMoney)
 
-local function getPlayerData(source, id)
-    local Player = GetPlayerObject(tonumber(id))
-    if not Player then Player = GetPlayerObjectFromID(id) end
-    if not Player then
-        local msg = ("Cannot Find Account(%s)"):format(id)
-        print(locale("invalid_account", id))
-        if source then
-            Notify(source, {title = locale("bank_name"), description = msg, type = "error"})
-        end
-    end
-    return Player
-end
-
 function RemoveAccountMoney(account, amount)
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then return print(locale("invalid_account", account)) end
 
-    local withdraw = tempAccount.removeMoney(account, amount)
+    local withdraw = Accounts.removeMoney(account, amount)
     if not withdraw then return print(locale("broke_account", account, amount)) end
 
     db.setBankBalance(account, acc.amount)
@@ -165,85 +194,73 @@ end
 exports('removeAccountMoney', RemoveAccountMoney)
 
 lib.callback.register('Renewed-Banking:server:withdraw', function(source, data)
-    print('data', json.encode(data))
     local amount = tonumber(data.amount)
     if not amount or amount < 1 then
-        Notify(source, {title = locale("bank_name"), description = locale("invalid_amount", "withdraw"), type = "error"})
+        Utils.sendNotif(source, {title = locale("bank_name"), description = locale("invalid_amount", "withdraw"), type = "error"})
         return false
     end
 
-    local left = tempAccount(source)
+    local left = Accounts(source)
     if not left then return end
 
     local secondAccount = left.id == data.fromAccount and source or data.fromAccount
-    local right = secondAccount ~= source and tempAccount(secondAccount) or left
+    local right = secondAccount ~= source and Accounts(secondAccount) or left
 
     if secondAccount ~= source and right == left then return end
 
     data.comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", right.name, "withdrawed", amount)
-    local success = tempAccount.removeMoney(secondAccount, amount, data.comment)
+    local success = Accounts.removeMoney(secondAccount, amount, data.comment)
     if not success then Utils.sendNotif(source, locale("not_enough_money")) return end
 
-    tempAccount.addCash(source, amount, data.comment)
+    Accounts.addCash(source, amount, data.comment)
     local transaction = handleTransaction(data.fromAccount,locale("personal_acc") .. data.fromAccount, amount, data.comment, right.id, left.name, "withdraw")
-
-    local money = GetFunds(source)
-    local returnData = {player = { cash = money.cash, account = left.id}, primary = {bank = money.bank, account = secondAccount, trans = transaction}}
-    print('returnData', json.encode(returnData))
-    return returnData
+    return transaction
 end)
 
 -- Im not even gonna attempt to wrap my head around this rn...
 
 lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
-    print('Renewed-Banking:server:transfer')
     local amount = tonumber(data.amount)
 
     if not amount or amount < 1 then
-        Notify(source, {title = locale("bank_name"), description = locale("invalid_amount", "transfer"), type = "error"})
+        Utils.sendNotif(source, {title = locale("bank_name"), description = locale("invalid_amount", "transfer"), type = "error"})
         return false
     end
 
-    local initiatorAcc = tempAccount(source)
-    if not initiatorAcc then return print('initiatorAcc not found')end
+    local initiatorAcc = Accounts(source)
+    if not initiatorAcc then return print(locale("invalid_account", source))end
 
-    local fromAccount = tempAccount(data.fromAccount)
-    if not fromAccount then return print('fromAccount not found') end
+    local fromAccount = Accounts(data.fromAccount)
+    if not fromAccount then return print(locale("invalid_account", data.fromAccount)) end
 
-    local toAccount = tempAccount(data.stateid)
-    if not toAccount then return print('toAccount not found') end
+    local toAccount = Accounts(data.stateid)
+    if not toAccount then return print(locale("invalid_account", data.stateid)) end
 
     local comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", initiatorAcc.name, "transferred", amount)
 
-    local success = tempAccount.removeMoney(data.fromAccount, amount, comment)
+    local success = Accounts.removeMoney(data.fromAccount, amount, comment)
     if not success then
         Utils.sendNotif(source, locale("not_enough_money"))
         print(locale("not_enough_money"))
         return false
     end
 
-    tempAccount.addMoney(data.stateid, amount, comment)
+    Accounts.addMoney(data.stateid, amount, comment)
 
     local transaction1 = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, comment, initiatorAcc.name, toAccount.name, "transfer")
     handleTransaction(data.stateid, locale("personal_acc") .. data.stateid, amount, comment, toAccount.name, initiatorAcc.name, "transfer", transaction1.trans_id)
 
-    local money = GetFunds(source)
-    local returnData = {
-        player = {cash = money.cash, account = initiatorAcc.id},
-        primary = {bank = money.bank, account = fromAccount, trans = transaction1},
-        secondary = {bank = toAccount.amount, account = toAccount.id}
-    }
-
-    print('ReturnData', json.encode(returnData))
-    return returnData
+    return transaction1
 end)
 
 lib.callback.register('Renewed-Banking:server:createNewAccount', function(source, accountid)
-    local acc = tempAccount(accountid)
-    if acc then Notify(source, {title = locale("bank_name"), description = locale("account_taken"), type = "error"}) return false end
-
+    local acc = Accounts(accountid)
+    if acc then Utils.sendNotif(source, {title = locale("bank_name"), description = locale("account_taken"), type = "error"}) return false end
     local cid = Framework.getCharId(source)
-    tempAccount.addBankAccount(accountid, cid)
+
+    local createdAccount = Accounts.AddBank(accountid, cid)
+
+    playerAccess[source][#playerAccess[source]+1] = createdAccount
 
     db.addAccount(accountid, 0, 0, cid)
     db.addAccountAuth(cid, accountid)
@@ -256,76 +273,68 @@ lib.callback.register('Renewed-Banking:server:getPlayerAccounts', function(sourc
     return ownedAccounts or false
 end)
 
-lib.callback.register('Renewed-Banking:server:getMembers', function(source, playerAccount)
-    local account = cachedPlayers[source]
-
-    local authorized
-    for i = 1, #account.accounts do
-        if account.accounts[i].account == playerAccount then
-            authorized = true
-            break
+lib.callback.register('Renewed-Banking:server:getMembers', function(source, accountid)
+    local members = db.selectMembers(accountid)
+    if type(members) ~= "string" then
+        for k=1, #members do
+            members[k].name = Framework.getCharNameById(members[k].charid)
         end
     end
-
-    if not authorized then return false end
-
-    local members = db.selectMembers(playerAccount)
-
-    print(members)
-
     return members or false
 end)
 
 local function addAccountMember(account, member)
-    local bankAccount = tempAccount(account)
+    local bankAccount = Accounts(account)
     if not bankAccount then print(locale("invalid_account", account)) return false end
-    local Player2 = getPlayerData(source, member)
-    if not Player2 then return false end
+    local Player = Accounts(member)
+    if not Player then return false end
     local source = Player.source
 
     playerAccess[source][#playerAccess[source]+1] = bankAccount
-    db.addAccountMembers(member, account)
+    db.addAccountMembers(Player.id, account)
     return true
 end
 exports("addAccountMember", addAccountMember)
 
-lib.callback.register('Renewed-Banking:server:addAccountMember', function(source, accountName, member)
+lib.callback.register('Renewed-Banking:server:addAccountMember', function(source, member, accountName)
     if not accountName or not member then return false end
 
     local cid = Framework.getCharId(source)
-    local bankAccount = tempAccount(accountName)
+    local bankAccount = Accounts(accountName)
 
     if cid ~= bankAccount.creator then print(locale("illegal_action", GetPlayerName(source))) return end
-    local Player2 = getPlayerData(source, member)
-    if not Player2 then return false end
-    local targetCID = GetIdentifier(Player2.source)
-    if not targetCID then return false end
-
-    playerAccess[source][#playerAccess[source]+1] = bankAccount
-    db.addAccountMembers(member, accountName)
+    addAccountMember(accountName, member)
     return true
 end)
 
 lib.callback.register('Renewed-Banking:server:removeAccountMembers', function(source, accoundId, members)
     local cid = Framework.getCharId(source)
-    local acc = tempAccount(accoundId)
+    local acc = Accounts(accoundId)
     if cid ~= acc.creator then print(locale("illegal_action", GetPlayerName(source))) return false end
     for k=1,#members do
-        db.removeAccountMembers(members[k].id, accoundId)
+        db.removeAccountMembers(members[k], accoundId)
     end
     return true
 end)
 
 lib.callback.register('Renewed-Banking:server:deleteAccount', function(source, account)
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then return end
 
     local cid = Framework.getCharId(source)
     if acc.creator ~= cid then return end
 
-    tempAccount.nukeBankAccount(account)
+    Accounts.nuke(account)
+    for k=1, #playerAccess[source] do
+        if playerAccess[source][k].id == acc.id then
+            table.remove(playerAccess[source], k)
+            break
+        end
+    end
+
     db.nukeAccount(account)
     db.nukeAccountMembers(account)
+    db.nukeTransactions(account)
     return true
 end)
 
@@ -347,17 +356,17 @@ end
 local function updateAccountName(account, newName, src)
     if not account or not newName then return false end
 
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then
         local getTranslation = locale("invalid_account", account)
-        if src then Notify(src, {title = locale("bank_name"), description = split(getTranslation, '0')[2], type = "error"}) end
+        if src then Utils.sendNotif(src, {title = locale("bank_name"), description = split(getTranslation, '0')[2], type = "error"}) end
         return false
     end
 
-    local newAcc = tempAccount(newName)
+    local newAcc = Accounts(newName)
     if newAcc then
         local getTranslation = locale("existing_account", newName)
-        if src then Notify(src, {title = locale("bank_name"), description = split(getTranslation, '0')[2], type = "error"}) end
+        if src then Utils.sendNotif(src, {title = locale("bank_name"), description = split(getTranslation, '0')[2], type = "error"}) end
         return false
     end
 
@@ -365,35 +374,38 @@ local function updateAccountName(account, newName, src)
         local cid = Framework.getCharId(src)
         if cid ~= acc.creator then
             local getTranslation = locale("illegal_action", GetPlayerName(src))
-            Notify(src, {title = locale("bank_name"), description = split(getTranslation, '0')[2], type = "error"})
+            Utils.Notify(src, {title = locale("bank_name"), description = split(getTranslation, '0')[2], type = "error"})
             return false
         end
     end
 
-    tempAccount.changeAccountName(account, newName)
+    Accounts.changeName(account, newName)
     db.updateAccountName(newName, account)
     db.updateAccountMembers(newName, account)
     db.updateTransactions(account, newName)
     return true
 end
-
-lib.callback.register('Renewed-Banking:server:changeAccountName', function(source, account, newName)
-    return updateAccountName(account, newName, source)
-end)
-
 exports("changeAccountName", updateAccountName)-- Should only use this on very secure backends to avoid anyone using this as this is a server side ONLY export --
 
+lib.callback.register('Renewed-Banking:server:changeAccountName', function(source, account, newName)
+    local acc = Accounts(account)
+    local cid = Framework.getCharId(source)
+    if not acc then return false end
+    if cid ~= acc.creator then return false end
+    return updateAccountName(account, newName)
+end)
+
 local function removeAccountMember(account, member)
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then print(locale("invalid_account", account)) return end
     db.removeAccountMembers(member, account)
 end
 exports("removeAccountMember", removeAccountMember)
 
 local function getAccountTransactions(account)
-    local acc = tempAccount(account)
+    local acc = Accounts(account)
     if not acc then return print(locale("invalid_account", account)) end
-    return db.getTransactions(data.account)
+    return db.getTransactions(account)
 end
 exports("getAccountTransactions", getAccountTransactions)
 
@@ -419,30 +431,21 @@ if not oxInventory then
             }
         }
     }, function(source, args)
-        local Player = GetPlayerObject(source)
+        local Player = Accounts(source)
         if not Player then return end
 
-        local iPlayer = GetPlayerObject(args.target)
-        if not iPlayer then return Notify(source, {title = locale("bank_name"), description = locale('unknown_player', args.target), type = "error"}) end
+        local iPlayer = Accounts(args.target)
+        if not iPlayer then return Utils.Notify(source, {title = locale("bank_name"), description = locale('unknown_player', args.target), type = "error"}) end
 
-        if IsDead(Player) then return Notify(source, {title = locale("bank_name"), description = locale('dead'), type = "error"}) end
-        if #(GetEntityCoords(GetPlayerPed(source)) - GetEntityCoords(GetPlayerPed(args.target))) > 10.0 then return Notify(source, {title = locale("bank_name"), description = locale('too_far_away'), type = "error"}) end
-        if args.amount < 0 then return Notify(source, {title = locale("bank_name"), description = locale('invalid_amount', "give"), type = "error"}) end
+        if #(GetEntityCoords(GetPlayerPed(source)) - GetEntityCoords(GetPlayerPed(args.target))) > 10.0 then return Utils.Notify(source, {title = locale("bank_name"), description = locale('too_far_away'), type = "error"}) end
+        if args.amount <= 0 then return Utils.Notify(source, {title = locale("bank_name"), description = locale('invalid_amount', "give"), type = "error"}) end
 
-        if RemoveMoney(Player, args.amount, 'cash') then
-            AddMoney(iPlayer, args.amount, 'cash')
-            local nameA = GetCharacterName(Player)
-            local nameB = GetCharacterName(iPlayer)
-            Notify(source, {title = locale("bank_name"), description = locale('give_cash', nameB, tostring(args.amount)), type = "error"})
-            Notify(args.target, {title = locale("bank_name"), description = locale('received_cash', nameA, tostring(args.amount)), type = "success"})
+        if Accounts.removeCash(source, args.amount) then Accounts.removeCash(source, args.amount)
+            Accounts.addCash(args.target, args.amount)
+            Utils.Notify(source, {title = locale("bank_name"), description = locale('give_cash', iPlayer.name, tostring(args.amount)), type = "error"})
+            Utils.Notify(args.target, {title = locale("bank_name"), description = locale('received_cash', Player.name, tostring(args.amount)), type = "success"})
         else
-            Notify(args.target, {title = locale("bank_name"), description = locale('not_enough_money'), type = "error"})
+            Utils.Notify(args.target, {title = locale("bank_name"), description = locale('not_enough_money'), type = "error"})
         end
-    end)
-end
-
-function ExportHandler(resource, name, cb)
-    AddEventHandler(('__cfx_export_%s_%s'):format(resource, name), function(setCB)
-        setCB(cb)
     end)
 end

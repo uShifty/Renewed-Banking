@@ -90,5 +90,23 @@
   "trans_not_found": "No se encontraron transacciones",
   "export_data": "Exportar datos de transacciones",
   "account_search": "Búsqueda de cuenta...",
-  "account_not_found": "No se encontraron cuentas"
+  "account_not_found": "No se encontraron cuentas",
+  "unsupported_framework": "^${renewed_banking} ¡Framework no compatible detectado!",
+  "creating_db": "${renewed_banking} Creación de un esquema de base de datos de Banca renovada v2",
+  "created_db": "${renewed_banking} ¡Esquema de base de datos de Banca renovada v2 creado!",
+  "conversion_db": "${renewed_banking} Banca renovada iniciada V1 => Conversión v2",
+  "converted_db": "${renewed_banking} Banca renovada V1 => v2 ¡Conversión completada!",
+  "transactions_copied": "¡Transacciones copiadas al portapapeles!",
+  "ui_remove_member": "Quitar miembro",
+  "ui_add_member": "Añadir miembro",
+  "ui_update_account": "Actualizar ID de cuenta",
+  "ui_delete_account": "BORRAR CUENTA",
+  "acc_del_scroll_warn": "¡Lea y desplácese por toda la advertencia antes de confirmar!",
+  "acc_del_title": "ADVERTENCIA: AVISO DE ELIMINACIÓN DE CUENTA",
+  "acc_deL_confirm": "He leído y entendido la advertencia. Confirmo la eliminación de mi cuenta bancaria.",
+  "no_member_found": "¡No se encontraron miembros!",
+  "new_acc_id": "ID de cuenta nueva",
+  "confirm_acc_id": "Confirmar ID de cuenta",
+  "account_deletion_message": "<p>Estimado @{name},</p>\n<p>Este mensaje está aquí para informarle <strong>enfáticamente</strong> sobre su solicitud <em>urgente</em> para eliminar su cuenta bancaria. Antes de continuar, queremos <strong>enfatizar</strong> las consecuencias significativas y los riesgos potenciales asociados con esta acción <em>crítica</em>. <strong>Revise detenidamente</strong> la siguiente advertencia <em>importante</em>:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Acción irreversible:</strong> Eliminar su cuenta bancaria es una <em>decisión permanente</em> que <strong>no puede ser deshecho</strong>. Una vez que se cierre la cuenta, todos los datos asociados, el historial de transacciones y los detalles de la cuenta serán <strong>borrados permanentemente</strong> de nuestro sistema.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Pérdida de servicios financieros:</strong> al eliminar su cuenta, perderá el acceso a <em>todo</em> en relación con su cuenta. Ya no podrá realizar ninguna <strong>transacción bancaria</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Pagos y obligaciones atrasados:</strong> Eliminar su cuenta bancaria puede ocasionar <em>graves interrupciones</em> en su obligaciones financieras. Todos los <strong>pagos pendientes, débitos automáticos, órdenes permanentes o depósitos directos</strong> asociados con su cuenta <strong>dejarán de funcionar</strong>. Es <em>su responsabilidad</em> <strong>actualizar su información financiera</strong> con las organizaciones pertinentes y garantizar una <strong>transición sin problemas</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Pérdida del historial de transacciones:</strong> Eliminar su cuenta significa la <em>pérdida permanente</em> de todos los <strong >registros de transacciones</strong> asociados con esa cuenta. Esta información podría ser <em>esencial</em> para <strong>fines fiscales, planificación financiera o requisitos legales</strong>. Se <strong>recomienda encarecidamente</strong> <strong>obtener y almacenar de forma segura</strong> toda la documentación necesaria <strong>antes de continuar</strong>.</li>\n</ol>\n<p>Nos tomamos su <strong>seguridad financiera</strong> y <strong>satisfacción</strong> <em>muy en serio</em>, y <strong>apreciamos</strong> su <strong>confianza continua </strong> en nuestros servicios. Si aún desea continuar con la eliminación de su cuenta bancaria, <strong>confirme su solicitud</strong> <strong>desplazándose por toda esta advertencia</strong> y <strong>marcando la casilla a continuación</strong> .</p>"
+
 }

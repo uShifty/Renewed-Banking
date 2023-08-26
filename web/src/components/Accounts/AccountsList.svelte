@@ -12,8 +12,6 @@
 
 	function createAccountClick() {
         const selectedAccount = $accounts.find((accountItem: any) => $activeAccount === accountItem.id);
-		console.log('activeAccount', $activeAccount)
-		console.log('selectedAccount', selectedAccount)
 		popupDetails.update(() => ({ actionType: "createaccount", account: selectedAccount }))
 	}
 
@@ -33,7 +31,7 @@
 	<h3 class="heading">{$translations.accounts}</h3>
 	<div class="accounts-list-search">
 		<input type="text" class="acc-search" placeholder={$translations.account_search} bind:value={accSearch}/>
-		<Tooltip tip="Create Account" >
+		<Tooltip tip={$translations.create_account} >
 			<i on:click={() => createAccountClick() } class="fa-sharp fa-light fa-folder-plus fa-xl" on:keydown={function() {}} />
 		</Tooltip>
 	</div>

@@ -42,7 +42,7 @@
   useNuiEvent<any>('initializeInterface', data => {
     translations.set(data.translations);
     currency.set(data.currency);
-    Player.subscribe(data.PlayerData);
+    Player.set(data.PlayerData);
   })
   
   onMount(() => {

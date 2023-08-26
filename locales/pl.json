@@ -90,5 +90,23 @@
 	"trans_not_found": "Nie znaleziono transakcji",
 	"export_data": "Eksportuj dane transakcji",
 	"account_search": "Wyszukiwanie konta...",
-	"account_not_found": "Nie znaleziono kont"
+	"account_not_found": "Nie znaleziono kont",
+	"unsupported_framework": "^${renewed_banking} Wykryto nieobsługiwany framework!",
+	"creating_db": "${renewed_banking} Tworzenie odnowionego schematu bazy danych Banking v2",
+	"created_db": "${renewed_banking} Utworzono odnowiony schemat bazy danych Banking v2!",
+	"conversion_db": "${renewed_banking} Rozpoczęto odnowioną bankowość V1 => Konwersja v2",
+	"converted_db": "${renewed_banking} Odnowiona bankowość V1 => Konwersja v2 zakończona!",
+	"transactions_copied": "Transakcje skopiowane do schowka!",
+	"ui_remove_member": "Usuń członka",
+	"ui_add_member": "Dodaj członka",
+	"ui_update_account": "Zaktualizuj identyfikator konta",
+	"ui_delete_account": "USUŃ KONTO",
+	"acc_del_scroll_warn": "Przeczytaj i przewiń całe ostrzeżenie przed potwierdzeniem!",
+	"acc_del_title": "OSTRZEŻENIE: INFORMACJA O USUNIĘCIU KONTA",
+	"acc_deL_confirm": "Przeczytałem i zrozumiałem ostrzeżenie. Potwierdzam usunięcie mojego konta bankowego.",
+	"no_member_found": "Nie znaleziono członków!",
+	"new_acc_id": "Nowy identyfikator konta",
+	"confirm_acc_id": "Potwierdź identyfikator konta",
+	"account_deletion_message": "<p>Drogi @{name},</p>\n<p>Ta wiadomość ma na celu <strong>zdecydowane</strong> poinformowanie Cię o <em>pilnej</em> prośbie o usunięcie Twojego konta bankowego. Zanim przejdziemy dalej, chcemy <strong>podkreślić</strong> istotne konsekwencje i potencjalne ryzyko związane z tą <em>krytyczną</em> czynnością. <strong>Dokładnie zapoznaj się</strong> z następującym <em>ważnym</em> ostrzeżeniem:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Nieodwracalne działanie:</strong> usunięcie konta bankowego to <em>trwała decyzja</em>, której <strong>nie można zostać cofnięte</strong>. Po zamknięciu konta wszystkie powiązane dane, historia transakcji i szczegóły konta zostaną <strong>trwale usunięte</strong> z naszego systemu.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Utrata usług finansowych:</strong> usuwając konto, stracisz dostęp do <em>wszystkich</em> w odniesieniu do Twojego konta. Nie będziesz już mógł wykonywać żadnych <strong>transakcji bankowych</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Nieodebrane płatności i zobowiązania:</strong> usunięcie konta bankowego może spowodować <em>poważne zakłócenia</em> w Twoim zobowiązania finansowe. Wszelkie <strong>oczekujące płatności, automatyczne obciążenia, zlecenia stałe lub bezpośrednie przelewy</strong> powiązane z Twoim kontem <strong>przestaną działać</strong>. <em>Twoim obowiązkiem</em> jest <strong>aktualizowanie informacji finansowych</strong> w odpowiednich organizacjach i zapewnienie <strong>płynnego przejścia</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Utrata historii transakcji:</strong> usunięcie konta oznacza <em>trwałą utratę</em> wszystkich <strong> >rekordy transakcyjne</strong> powiązane z tym kontem. Te informacje mogą być <em>niezbędne</em> do <strong>celów podatkowych, planowania finansowego lub spełnienia wymogów prawnych</strong>. <strong>Zdecydowanie zalecamy</strong> <strong>uzyskanie i bezpieczne przechowywanie</strong> wszelkiej niezbędnej dokumentacji <strong>przed kontynuowaniem</strong>.</li>\n</ol>\n<p>Traktujemy Twoje <strong>bezpieczeństwo finansowe</strong> i <strong>zadowolenie</strong> <em>bardzo poważnie</em> i <strong>doceniamy</strong> Twoje <strong>ciągłe zaufanie </strong> w naszych usługach. Jeśli nadal chcesz kontynuować usuwanie swojego konta bankowego, <strong>potwierdź swoją prośbę</strong>, <strong>przewijając całe ostrzeżenie</strong> i <strong>zaznaczając pole poniżej</strong> .</p>"
+  
 }

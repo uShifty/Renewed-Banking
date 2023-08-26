@@ -30,7 +30,6 @@
         <Notification />
     {/if}
 </VisibilityProvider>
-
 {#if $loading}
     <Loading />
 {/if}

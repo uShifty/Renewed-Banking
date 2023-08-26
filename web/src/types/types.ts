@@ -18,6 +18,7 @@ export interface accountType {
     id: string,
     type: string,
     name: string,
+    cash?: number,
     amount: number, 
     citizen_id: string,
     transactions: transactionType[]

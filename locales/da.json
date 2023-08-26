@@ -90,5 +90,22 @@
 	"trans_not_found": "Ingen transaktioner fundet",
 	"export_data": "Eksporter transaktionsdata",
 	"account_search": "Kontosøgning...",
-	"account_not_found": "Ingen konti fundet"
+	"account_not_found": "Ingen konti fundet",
+	"unsupported_framework": "^${renewed_banking} Ikke-understøttet ramme blev fundet!",
+	"creating_db": "${renewed_banking} Oprettelse af fornyet Banking v2-databaseskema",
+	"created_db": "${renewed_banking} Fornyet Banking v2 Database Schema Oprettet!",
+	"conversion_db": "${renewed_banking} Startede Fornyet Banking V1 => v2 Konvertering",
+	"converted_db": "${renewed_banking} Fornyet Banking V1 => v2 Konvertering fuldført!",
+	"transactions_copied": "Transaktioner kopieret til udklipsholder!",
+	"ui_remove_member": "Fjern medlem",
+	"ui_add_member": "Tilføj medlem",
+	"ui_update_account": "Opdater konto-id",
+	"ui_delete_account": "SLET KONTO",
+	"acc_del_scroll_warn": "Læs og rul gennem hele advarslen, før du bekræfter!",
+	"acc_del_title": "ADVARSEL: MEDDELELSE SLETTELSE AF KONTO",
+	"acc_deL_confirm": "Jeg har læst og forstået advarslen. Jeg bekræfter sletningen af ​​min bankkonto.",
+	"no_member_found": "Ingen medlemmer fundet!",
+	"new_acc_id": "Nyt konto-id",
+	"confirm_acc_id": "Bekræft konto-id",
+	"account_deletion_message": "<p>Kære @{name},</p>\n<p>Denne meddelelse er her for at <strong>stærkt</strong> informere dig om din <em>hastende</em> anmodning om at slette din bankkonto. Før vi fortsætter, vil vi gerne <strong>understrege</strong> de væsentlige konsekvenser og potentielle risici forbundet med denne <em>kritiske</em> handling. Venligst <strong>gennemgå omhyggeligt</strong> følgende <em>vigtige</em> advarsel:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Uigenkaldelig handling:</strong> Sletning af din bankkonto er en <em>permanent beslutning</em>, som <strong>ikke kan fortrydes</strong>. Når kontoen er lukket, vil alle tilknyttede data, transaktionshistorik og kontooplysninger blive <strong>permanent slettet</strong> fra vores system.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Tab af finansielle tjenester:</strong> Ved at slette din konto mister du adgangen til <em>alt</em> i forhold til din konto. Du vil ikke længere være i stand til at udføre nogen <strong>banktransaktioner</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Mislykkede betalinger og forpligtelser:</strong> Sletning af din bankkonto kan føre til <em>alvorlige forstyrrelser</em> i din økonomiske forpligtelser. Eventuelle <strong>afventende betalinger, automatiske debiteringer, stående ordrer eller direkte indbetalinger</strong> forbundet med din konto vil <strong>ophøre med at fungere</strong>. Det er <em>dit ansvar</em> at <strong>opdatere dine økonomiske oplysninger</strong> med relevante organisationer og sikre en <strong>glat overgang</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Tab af transaktionshistorik:</strong> Sletning af din konto betyder det <em>permanente tab</em> af alle <strong >transaktionsposter</strong> knyttet til den pågældende konto. Disse oplysninger kan være <em>væsentlige</em> til <strong>skatteformål, økonomisk planlægning eller juridiske krav</strong>. Det anbefales <strong>på det kraftigste</strong> at <strong>indhente og opbevare</strong> al nødvendig dokumentation <strong>inden du fortsætter</strong>.</li>\n</ol>\n<p>Vi tager din <strong>økonomiske sikkerhed</strong> og <strong>tilfredshed</strong> <em>meget alvorligt</em>, og vi <strong>sætter pris på</strong> din <strong>fortsatte tillid </strong> i vores tjenester. Hvis du stadig ønsker at fortsætte med sletningen af ​​din bankkonto, skal du <strong>bekræfte din anmodning</strong> ved at <strong>rulle gennem hele denne advarsel</strong> og <strong>markere afkrydsningsfeltet nedenfor</strong> .</p>"
 }

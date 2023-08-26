@@ -14,9 +14,10 @@
     function handleAccountClick(id: any) {
       activeAccount.update(() => id);
     }
-  
+    
+
     let isAtm: boolean;
-    let options = ['Remove Member', 'Add Member', 'Update Account ID', 'DELETE ACCOUNT'];
+    let options = [$translations.ui_remove_member, $translations.ui_add_member, $translations.ui_update_account, $translations.ui_delete_account];
     let menuX = 0;
     let menuY = 0;
     let showContextMenu = false;
@@ -34,20 +35,18 @@
       showContextMenu = true;
     }
     const optionMap: { [key: string]: string } = {
-    "Add Member": "addmember",
-    "Remove Member": "removemember",
-    "Update Account ID": "updateaccountid",
-    "DELETE ACCOUNT": "deleteaccount",
-  };
+      [$translations.ui_add_member]: "addmember",
+      [$translations.ui_remove_member]: "removemember",
+      [$translations.ui_update_account]: "updateaccountid",
+      [$translations.ui_delete_account]: "deleteaccount",
+    };
     function handleOptionClick(event: CustomEvent) {
       // Handle option click event here
-      console.log(`Selected option: ${event.detail}`);
       const actionType = optionMap[event.detail];
-      console.log(`Selected option: ${actionType}`);
 
-        if (actionType) {
-            popupDetails.update(() => ({ actionType, account }));
-        }
+      if (actionType) {
+          popupDetails.update(() => ({ actionType, account }));
+      }
 
       showContextMenu = false;
     }
@@ -87,7 +86,7 @@
     <div class="account-item-header">
       <h4>{account.type} {$translations.account} / {account.id}</h4>
       
-      {#if account.id !== $Player.id && account.id === $activeAccount}
+      {#if account.id !== $Player.id && account.id === $activeAccount && (account.creator && account.creator === $Player.id)}
         <Tooltip tip="Manage Account">
           <i class="fa-regular fa-users-gear fa-xl" on:click={handleClick} on:keydown={function() {}}/>
         </Tooltip>

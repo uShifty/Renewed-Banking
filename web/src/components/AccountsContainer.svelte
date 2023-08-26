@@ -20,11 +20,11 @@
 
     function handleClickExportData() {
         if (!account) {
-            return console.log("No account selected");
+            return console.log($translations.no_account);
         }
 
         if (account.transactions.length === 0) {
-            notify.set("No transactions to export!");
+            notify.set($translations.trans_not_found);
             setTimeout(() => {
                 notify.set("");
             }, 3500);
@@ -33,7 +33,7 @@
 
         const csv = convertToCSV(account.transactions);
         setClipboard(csv);
-        notify.set("Data copied to clipboard!");
+        notify.set($translations.transactions_copied);
         setTimeout(() => {
             notify.set("");
         }, 3500);
@@ -56,10 +56,7 @@
         </div>
         {#if !isAtm}
             <div class="export-data">
-                <button
-                    class="btn btn-green"
-                    on:click|preventDefault={handleClickExportData}
-                >
+                <button class="btn btn-green" on:click|preventDefault={handleClickExportData}>
                     <i class="fa-solid fa-file-export fa-fw" />
                     {$translations.export_data}
                 </button>

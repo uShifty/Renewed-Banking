@@ -90,5 +90,23 @@
 	"trans_not_found": "Nerasta jokių operacijų",
 	"export_data": "Eksportuoti operacijų duomenis",
 	"account_search": "Paskyros paieška...",
-	"account_not_found": "Paskyrų nerasta"
+	"account_not_found": "Paskyrų nerasta",
+	"unsupported_framework": "^${renewed_banking} Aptikta nepalaikoma sistema!",
+	"creating_db": "${renewed_banking} Atnaujintos bankininkystės v2 duomenų bazės schemos kūrimas",
+	"created_db": "${renewed_banking} Atnaujinta bankininkystės v2 duomenų bazės schema sukurta!",
+	"conversion_db": "${renewed_banking} Pradėta atnaujinta bankininkystė V1 => v2 konversija",
+	"converted_db": "${renewed_banking} Atnaujinta bankininkystė V1 => v2 konversija baigta!",
+	"transactions_copied": "Operacijos nukopijuotos į mainų sritį!",
+	"ui_remove_member": "Pašalinti narį",
+	"ui_add_member": "Pridėti narį",
+	"ui_update_account": "Atnaujinkite paskyros ID",
+	"ui_delete_account": "IŠTRINTI PASKYRĄ",
+	"acc_del_scroll_warn": "Prieš patvirtindami perskaitykite ir slinkite per visą įspėjimą!",
+	"acc_del_title": "ĮSPĖJIMAS: PRANEŠIMAS APIE PASKYRĄ",
+	"acc_deL_confirm": "Perskaičiau ir supratau įspėjimą. Patvirtinu savo banko sąskaitos ištrynimą.",
+	"no_member_found": "Narių nerasta!",
+	"new_acc_id": "Naujas paskyros ID",
+	"confirm_acc_id": "Patvirtinkite paskyros ID",
+	"account_deletion_message": "<p>Gerb. @{name},</p>\n<p>Šis pranešimas skirtas <strong>tvirtai</strong> informuoti apie jūsų <em>skubią</em> užklausą ištrinti banko sąskaitą. Prieš tęsdami norime <strong>pabrėžti</strong> su šiuo <em>kritiniu</em> veiksmu susijusias reikšmingas pasekmes ir galimą riziką. <strong>Atidžiai peržiūrėkite</strong> šį <em>svarbų</em> įspėjimą:</p>\n<ol>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Negrįžtamas veiksmas:</strong> banko sąskaitos ištrynimas yra <em>nuolatinis sprendimas</em>, kurio <strong>negalima būti anuliuoti</strong>. Kai paskyra bus uždaryta, visi susiję duomenys, operacijų istorija ir išsami paskyros informacija bus <strong>visam laikui ištrinti</strong> iš mūsų sistemos.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Finansinių paslaugų praradimas:</strong> ištrynę paskyrą prarasite prieigą prie <em>visko</em> jūsų sąskaita. Nebegalėsite atlikti jokių <strong>bankinių operacijų</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Praleisti mokėjimai ir įsipareigojimai:</strong> ištrynus banko sąskaitą gali <em>sutrikti</em> finansinių įsipareigojimų. Visi <strong>laukiantys mokėjimai, automatinis debetas, periodiniai pavedimai arba tiesioginiai indėliai</strong>, susiję su jūsų paskyra, <strong>nutrauks veikimą</strong>. <em>Jūsų pareiga</em> yra <strong>atnaujinti savo finansinę informaciją</strong> atitinkamose organizacijose ir užtikrinti <strong>sklandų perėjimą</strong>.</li>\n<li><strong><i class=\"fas fa-exclamation-circle\"></i> Operacijų istorijos praradimas:</strong> paskyros ištrynimas reiškia <em>visam laikui</em> visų <strong> >operacijų įrašai</strong>, susieti su ta paskyra. Ši informacija gali būti <em>būtina</em> <strong>mokesčių tikslais, finansų planavimu ar teisiniais reikalavimais</strong>. <strong>Prieš tęsiant</strong> <strong>labai rekomenduojama</strong> <strong>gauti ir saugiai laikyti</strong> visus reikalingus dokumentus.</strong>\n</ol>\n<p>Į jūsų <strong>finansinį saugumą</strong> ir <strong>pasitenkinimą</strong> žiūrime <em>labai rimtai</em> ir <strong>dėkojame</strong> už <strong>nuolatinį pasitikėjimą </strong> mūsų paslaugose. Jei vis tiek norite ištrinti banko sąskaitą, <strong>patvirtinkite užklausą</strong> <strong>slinkdami per visą šį įspėjimą</strong> ir <strong>pažymėdami toliau esantį laukelį</strong> .</p>"
+  
 }

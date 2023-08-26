@@ -13,12 +13,9 @@
 
 
     // Use reactive statement to update the 'account' variable when 'accounts' or 'activeAccount' change
-    $: account = $accounts.find(
-        (accountItem: accountType) => $activeAccount === accountItem.id
-    );
+    $: account = $accounts.find((accountItem: accountType) => $activeAccount === accountItem.id);
 
     function closePopup() {
-        console.log('closePopup')
         popupDetails.update((val: any) => ({
             ...val,
             actionType: "",
@@ -29,10 +26,7 @@
 
     async function confirmDeletion() {
        try {
-            if (!account?.id) console.log('account not found?', account)
             if (isConfirmed) {
-                console.log("Account deletion starteds");
-                
                 const retData = await fetchNui($popupDetails.actionType, { accountID: account.id });
                 if (retData) {
                     accounts.update((accountList) => {
@@ -41,13 +35,9 @@
                         });
                         return updatedList;
                     });
-                } else {
-
-                }
-                console.log("Account deletion confirmed");
-                                
+                }              
             } else {
-                console.log("Please read and scroll through the entire warning before confirming!");
+                console.log($translations.acc_del_scroll_warn);
             }
         } catch (error) {
             console.error("Error:", error);
@@ -67,7 +57,6 @@
                 checkbox.checked = false;
                 isConfirmed = false;
             }
-            console.log('isConfirmed', isConfirmed)
         };
 
         handleScroll();
@@ -79,16 +68,16 @@
 </script>
 
 <section class="popup-content">
-    <h2 style="color: red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> WARNING: ACCOUNT DELETION NOTICE <i class="fas fa-exclamation-triangle"></i></h2>
+    <h2 style="color: red; text-align: center;"><i class="fas fa-exclamation-triangle"></i> {$translations.acc_del_title} <i class="fas fa-exclamation-triangle"></i></h2>
     <form action="#" style="display: flex; flex-direction: column;">
         <div class="form-row" style="margin-bottom: 1rem;">
-            <pre class="textbox">{@html accountDeletionMessage.replace("@{name}", $Player.name)}</pre>
+            <pre class="textbox">{@html $translations.account_deletion_message.replace("@{name}", $Player.name)}</pre>
         </div>
 
         <div class="form-row" style="margin-bottom: 1rem; display: flex; justify-content: center; align-items: center;">
             <label class="custom-checkbox">
                 <input type="checkbox" id="confirmationCheckbox" bind:checked={isConfirmed} disabled={!isTextBoxScrolled} />
-                <span>I have read and understood the warning. I confirm the deletion of my bank account.</span>
+                <span>{$translations.acc_deL_confirm}</span>
             </label>
         </div>
 

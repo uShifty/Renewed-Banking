@@ -1,10 +1,10 @@
 lib.locale()
 Config = {
-    framework = 'qb', -- qb and esx preconfigured
-    target = 'ox', -- "qb" and "ox" are the only supported target systems
-    renewedMultiJob = false, -- QBCORE ONLY! https://github.com/Renewed-Scripts/qb-phone
+    framework = 'qb', -- qb or esx 
+    target = 'ox', -- "qb" or "ox" are the only supported target systems
     progressbar = 'circle', -- circle or rectangle (Anything other than circle will default to rectangle)
-    currency ='USD', -- USD, EUR, GBP ect.....
+    currency ='USD', -- USD, EUR, GBP ect..... Some will work some wont...
+    purgeTransactions = false, -- Deleted old transactions greater than 6 months
     atms = {
         `prop_atm_01`,
         `prop_atm_02`,
@@ -14,8 +14,7 @@ Config = {
     peds = {
         [1] = { -- Pacific Standard
             model = 'u_m_m_bankman',
-            coords = vector4(241.44, 227.19, 106.29, 170.43),
-            createAccounts = true
+            coords = vector4(241.44, 227.19, 106.29, 170.43)
         },
         [2] = {
             model = 'ig_barry',
@@ -43,8 +42,7 @@ Config = {
         },
         [8] = { -- paleto
             model = 'u_m_m_bankman',
-            coords = vector4(-112.22, 6471.01, 31.63, 134.18),
-            createAccounts = true
+            coords = vector4(-112.22, 6471.01, 31.63, 134.18)
         }
     }
 }
