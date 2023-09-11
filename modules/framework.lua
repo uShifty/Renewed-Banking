@@ -34,6 +34,12 @@ return {
     isGroupAuth = function(group, grade)
         return Renewed.isGroupAuth(group, grade)
     end,
+    getOfflineMoney = function(identifier)
+        return Renewed.getOfflineMoney(identifier)
+    end,
+    addOfflineMoney = function(identifier, amount, mType)
+        return Renewed.addOfflineMoney(identifier, amount, mType)
+    end,
     init = Config.framework == 'qb' and require('modules.framework.qb').initFramework or Config.framework == 'esx' and require('modules.framework.esx').initFramework or function()
         print('UNKNOWN FRAMEWORK')
     end

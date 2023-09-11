@@ -1,3 +1,4 @@
+local Utils = require('modules.utils.server')
 local MySQL = MySQL
 
 local SELECT_BANKACCOUNTS = 'SELECT * FROM bank_accounts'
@@ -161,8 +162,10 @@ function db.migrateData(oldAccounts)
         playerData.transactions = json.decode(playerData.transactions)
         if playerData.transactions then
             for i = #playerData.transactions, 1, -1 do
-                db.addTransaction(playerData.id, playerData.transactions[i].trans_id, playerData.transactions[i].title, playerData.transactions[i].message, playerData.transactions[i].amount, playerData.transactions[i].receiver, playerData.transactions[i].trans_type, playerData.transactions[i].issuer, playerData.transactions[i].time)
-                Wait(0)
+                if Utils.validateTransaction(playerData.id, playerData.transactions[i].title, playerData.transactions[i].amount, playerData.transactions[i].message, playerData.transactions[i].issuer, playerData.transactions[i].receiver, playerData.transactions[i].trans_type, playerData.transactions[i].trans_id) then
+                    db.addTransaction(playerData.id, playerData.transactions[i].trans_id, playerData.transactions[i].title, playerData.transactions[i].message, playerData.transactions[i].amount, playerData.transactions[i].receiver, playerData.transactions[i].trans_type, playerData.transactions[i].issuer, playerData.transactions[i].time)
+                    Wait(0)
+                end
             end
         end
     end
@@ -183,8 +186,10 @@ function db.migrateData(oldAccounts)
 
         local transactionData = json.decode(account.transactions)
         for i = #transactionData, 1, -1 do
-            db.addTransaction(accountId, transactionData[i].trans_id, transactionData[i].title, transactionData[i].message, transactionData[i].amount, transactionData[i].receiver, transactionData[i].trans_type, transactionData[i].issuer, transactionData[i].time)
-            Wait(0)
+            if Utils.validateTransaction(accountId, transactionData[i].title, transactionData[i].amount, transactionData[i].message, transactionData[i].issuer, transactionData[i].receiver, transactionData[i].trans_type, transactionData[i].trans_id) then
+                db.addTransaction(accountId, transactionData[i].trans_id, transactionData[i].title, transactionData[i].message, transactionData[i].amount, transactionData[i].receiver, transactionData[i].trans_type, transactionData[i].issuer, transactionData[i].time)
+                Wait(0)
+            end
         end
     end
 

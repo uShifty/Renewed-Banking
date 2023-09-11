@@ -93,14 +93,7 @@ end)
 -- Events
 local Type = type
 local function handleTransaction(account, title, amount, message, issuer, receiver, transType, transID)
-    if not account or Type(account) ~= 'string' then return print(locale("err_trans_account", account)) end
-    if not title or Type(title) ~= 'string' then return print(locale("err_trans_title", title)) end
-    if not amount or Type(amount) ~= 'number' then return print(locale("err_trans_amount", amount)) end
-    if not message or Type(message) ~= 'string' then return print(locale("err_trans_message", message)) end
-    if not issuer or Type(issuer) ~= 'string' then return print(locale("err_trans_issuer", issuer)) end
-    if not receiver or Type(receiver) ~= 'string' then return print(locale("err_trans_receiver", receiver)) end
-    if not transType or Type(transType) ~= 'string' then return print(locale("err_trans_type", transType)) end
-    if transID and Type(transID) ~= 'string' then return print(locale("err_trans_transID", transID)) end
+    if not Utils.validateTransaction(account, title, amount, message, issuer, receiver, transType, transID) then return end
 
     --if not cachedAccounts[account] or not cachedPlayers[account] then print("GOES OFF HERE") return end
     local transaction = {
@@ -234,7 +227,13 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
     if not fromAccount then return print(locale("invalid_account", data.fromAccount)) end
 
     local toAccount = Accounts(data.stateid)
-    if not toAccount then return print(locale("invalid_account", data.stateid)) end
+    local isOffline
+    if not toAccount then
+        if not Framework.getOfflineMoney(data.stateid) then
+            return print(locale("invalid_account", data.stateid))
+        end
+        isOffline = true
+    end
 
     local comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", initiatorAcc.name, "transferred", amount)
 
@@ -245,7 +244,12 @@ lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
         return false
     end
 
-    Accounts.addMoney(data.stateid, amount, comment)
+    if isOffline then
+        Framework.addOfflineMoney(data.stateid, amount, "bank")
+        toAccount = {name = Framework.getCharNameById(data.stateid)}
+    else
+        Accounts.addMoney(data.stateid, amount, comment)
+    end
 
     local transaction1 = handleTransaction(data.fromAccount, locale("personal_acc") .. data.fromAccount, amount, comment, initiatorAcc.name, toAccount.name, "transfer")
     handleTransaction(data.stateid, locale("personal_acc") .. data.stateid, amount, comment, toAccount.name, initiatorAcc.name, "transfer", transaction1.trans_id)
@@ -307,12 +311,12 @@ lib.callback.register('Renewed-Banking:server:addAccountMember', function(source
     return true
 end)
 
-lib.callback.register('Renewed-Banking:server:removeAccountMembers', function(source, accoundId, members)
+lib.callback.register('Renewed-Banking:server:removeAccountMembers', function(source, accountId, members)
     local cid = Framework.getCharId(source)
-    local acc = Accounts(accoundId)
+    local acc = Accounts(accountId)
     if cid ~= acc.creator then print(locale("illegal_action", GetPlayerName(source))) return false end
     for k=1,#members do
-        db.removeAccountMembers(members[k], accoundId)
+        db.removeAccountMembers(members[k], accountId)
     end
     return true
 end)
