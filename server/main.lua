@@ -294,7 +294,13 @@ local function addAccountMember(account, member)
     if not Player then return false end
     local source = Player.source
 
-    playerAccess[source][#playerAccess[source]+1] = bankAccount
+    for _, acc in ipairs(playerAccess[source]) do
+        if acc == bankAccount then
+            return true
+        end
+    end
+
+    playerAccess[source][#playerAccess[source] + 1] = bankAccount
     db.addAccountMembers(Player.id, account)
     return true
 end
@@ -311,12 +317,36 @@ lib.callback.register('Renewed-Banking:server:addAccountMember', function(source
     return true
 end)
 
+local function removeBankAccess(account, member)
+    local Player = Accounts(member)
+    if type(Player) == "table" and Player.source then
+        local accessTable = playerAccess[Player.source]
+        if accessTable then
+            for index, accObj in ipairs(accessTable) do
+                if accObj == account then
+                    table.remove(accessTable, index)
+                    break
+                end
+            end
+        end
+    end
+end
+
+local function removeAccountMember(account, member)
+    local acc = Accounts(account)
+    if not acc then print(locale("invalid_account", account)) return end
+    db.removeAccountMembers(member, account)
+    removeBankAccess(account, member)
+end
+exports("removeAccountMember", removeAccountMember)
+
 lib.callback.register('Renewed-Banking:server:removeAccountMembers', function(source, accountId, members)
     local cid = Framework.getCharId(source)
     local acc = Accounts(accountId)
     if cid ~= acc.creator then print(locale("illegal_action", GetPlayerName(source))) return false end
     for k=1,#members do
         db.removeAccountMembers(members[k], accountId)
+        removeBankAccess(accountId, members[k])
     end
     return true
 end)
@@ -398,13 +428,6 @@ lib.callback.register('Renewed-Banking:server:changeAccountName', function(sourc
     if cid ~= acc.creator then return false end
     return updateAccountName(account, newName)
 end)
-
-local function removeAccountMember(account, member)
-    local acc = Accounts(account)
-    if not acc then print(locale("invalid_account", account)) return end
-    db.removeAccountMembers(member, account)
-end
-exports("removeAccountMember", removeAccountMember)
 
 local function getAccountTransactions(account)
     local acc = Accounts(account)
