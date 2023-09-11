@@ -183,14 +183,15 @@ end)
 function CreatePeds()
     if pedSpawned then return end
     for k=1, #Config.peds do
-        local model = joaat(Config.peds[k].model)
+        local Ped = Config.peds[k]
+        local model = joaat(Ped.model)
         RequestModel(model)
         while not HasModelLoaded(model) do Wait(0) end
 
-        local coords = Config.peds[k].coords
+        local coords = Ped.coords
         local bankPed = CreatePed(0, model, coords.x, coords.y, coords.z-1, coords.w, false, false)
 
-        TaskStartScenarioInPlace(bankPed, 'PROP_HUMAN_STAND_IMPATIENT', 0, true)
+        TaskStartScenarioInPlace(bankPed, Ped.scenario, 0, true)
         FreezeEntityPosition(bankPed, true)
         SetEntityInvincible(bankPed, true)
         SetBlockingOfNonTemporaryEvents(bankPed, true)
