@@ -91,7 +91,6 @@ lib.callback.register('renewed-banking:server:initalizeBanking', function(source
 end)
 
 -- Events
-local Type = type
 local function handleTransaction(account, title, amount, message, issuer, receiver, transType, transID)
     if not Utils.validateTransaction(account, title, amount, message, issuer, receiver, transType, transID) then return end
 
@@ -195,12 +194,10 @@ lib.callback.register('Renewed-Banking:server:withdraw', function(source, data)
 
     local left = Accounts(source)
     if not left then return end
-
     local secondAccount = left.id == data.fromAccount and source or data.fromAccount
     local right = secondAccount ~= source and Accounts(secondAccount) or left
-
     if secondAccount ~= source and right == left then return end
-
+    
     data.comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", right.name, "withdrawed", amount)
     local success = Accounts.removeMoney(secondAccount, amount, data.comment)
     if not success then Utils.sendNotif(source, locale("not_enough_money")) return end
@@ -209,8 +206,6 @@ lib.callback.register('Renewed-Banking:server:withdraw', function(source, data)
     local transaction = handleTransaction(data.fromAccount,locale("personal_acc") .. data.fromAccount, amount, data.comment, right.id, left.name, "withdraw")
     return transaction
 end)
-
--- Im not even gonna attempt to wrap my head around this rn...
 
 lib.callback.register('Renewed-Banking:server:transfer', function(source, data)
     local amount = tonumber(data.amount)

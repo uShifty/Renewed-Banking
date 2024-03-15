@@ -38,7 +38,7 @@
     <h5>
         <span class="title-container" class:withdrawTitle={transaction.trans_type === "withdraw"}>
             {transaction.title}
-            <p>[{transaction.trans_type.toUpperCase()}]</p>
+            <p>[{$translations[transaction.trans_type + "_but"].toUpperCase()}]</p>
         </span>
         <span class="trans_id" class:withdrawId={transaction.trans_type === "withdraw"}>{transaction.trans_id}</span>
     </h5>

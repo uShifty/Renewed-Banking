@@ -8,7 +8,7 @@ return {
         end)
     end,
     sanitizeMessage = function(message)
-        message = type(message) == 'string' and message or tostring(message)
+        message = Type(message) == 'string' and message or tostring(message)
         message = message:gsub("'", "''"):gsub("\\", "\\\\")
 
         return message
