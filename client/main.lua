@@ -63,9 +63,10 @@ local function DeletePeds()
         RemoveBlip(blips[k])
     end
     peds = {}
+    pedSpawned = false
 end
 
-AddEventHandler('QBCore:Client:OnPlayerUnload', function()
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     DeletePeds()
 end)
 
