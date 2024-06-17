@@ -3,7 +3,7 @@ game 'gta5'
 
 description 'Renewed Banking'
 Author "RenewedScripts"
-version '2.1.0'
+version '3.0.0'
 
 lua54 'yes'
 use_experimental_fxv2_oal 'yes'

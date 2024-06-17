@@ -3,9 +3,18 @@
  
 [Renewed Discord](https://discord.gg/P3RMrbwA8n)
 
+## ⚠️ Warning
+Before making any changes, please backup the following database tables:
+* `bank_accounts_new`
+* `player_transactions`
+* `bank_transactions`
+* `player_accounts`
+* `bank_accounts`
+
+**Note:** The resource will delete these tables and recreate them with a new schema, porting the existing data over to the new structure.
+
 # Project Description
-This resource is created & maintained by uShifty#1733 and was not a fork of any of the other banking resources.
-The 2.0 UI was originally redesigned by [qwadebot](https://github.com/qw-scripts) has since been modified significantly by the Renewed team.
+Renewed-Banking is a advanced banking resource created by uShifty and maintained by RenewedScripts. The design was inspired by the layout of NoPixel, it has been built from scratch. The 2.0 UI, originally reskined by [qwadebot](https://github.com/qw-scripts), has undergone significant modifications by RenewedScripts.
 
 # Dependencies
 * [oxmysql](https://github.com/overextended/oxmysql)
@@ -13,7 +22,8 @@ The 2.0 UI was originally redesigned by [qwadebot](https://github.com/qw-scripts
 * [Renewed-Lib](https://github.com/Renewed-Scripts/Renewed-Lib)
 * [ox_target](https://github.com/overextended/ox_target) (Optional)
 * [qb-target](https://github.com/qbcore-framework/qb-target) (Optional) **Supported not recommended**
-Note: Frameworks Supported QBCore and ESX. 
+
+**Supported Frameworks: QBCore and ESX.**
  
 # Features
 * Personal, Job, Gang, Shared Accounts
@@ -21,11 +31,8 @@ Note: Frameworks Supported QBCore and ESX.
 * Optimized Resource (0.00ms Running At All Times)
 
 # Installation
-
-1) Integrate the exports found below in any external resource that needs them
- 
-## Transaction Integrations
-
+## Step 1: Integrate Exports
+Integrate the following exports in any external resource that interacts with a player's bank account:
 ```lua
  -- Place this export anywhere that interacts with a Players bank account. (Where it adds or removes money from bank)
 exports['Renewed-Banking']:handleTransaction(account, title, amount, message, issuer, receiver, type, transID)
@@ -35,13 +42,13 @@ exports['Renewed-Banking']:handleTransaction(account, title, amount, message, is
  ---@param message<string> - Description of transaction
  ---@param issuer<string> - Name of Business or Character issuing the bill
  ---@param receiver<string> - Name of Business or Character receiving the bill
- ---@param type<string> - "deposit" | "withdraw"
+ ---@param type<string> - "deposit" or "withdraw"
  ---@param transID<string> - (optional) Force a specific transaction ID instead of generating one.
 
 ---@return transaction<table> {
   ---@param trans_id<string> - Transaction ID for the created transaction
   ---@param amount<number> - Amount of money being transacted
-  ---@param trans_type<string> - "deposit" | "withdraw"
+  ---@param trans_type<string> - "deposit" or "withdraw"
   ---@param receiver<string> - Name of Business or Character receiving the bill
   ---@param message<string> - Description of transaction
   ---@param issuer<string> - Name of Business or Character issuing the bill
@@ -50,25 +57,26 @@ exports['Renewed-Banking']:handleTransaction(account, title, amount, message, is
 
 
 exports['Renewed-Banking']:getAccountMoney(account)
- ---@param account<string> - Job Name | Custom Account Name
+ ---@param account<string> - Job Name or Custom Account Name
 
 ---@return amount<number> - Amount of money account has or false
 
 exports['Renewed-Banking']:addAccountMoney(account, amount)
- ---@param account<string> - Job Name | Custom Account Name
+ ---@param account<string> - Job Name or Custom Account Name
   ---@param amount<number> - Amount of money being transacted
 
----@return complete<boolean> - true | false
+---@return complete<boolean> - true or false
 
 exports['Renewed-Banking']:removeAccountMoney(account, amount)
- ---@param account<string> - Job Name | Custom Account Name
+ ---@param account<string> - Job Name or Custom Account Name
   ---@param amount<number> - Amount of money being transacted
 
----@return complete<boolean> - true | false
+---@return complete<boolean> - true or false
 ```
 
 # QBCore additional Installation Steps 
 ## qb-managment conversion
+qb-management Conversion
 ```lua
 exports['qb-management']:GetAccount => exports['Renewed-Banking']:getAccountMoney
 exports['qb-management']:AddMoney => exports['Renewed-Banking']:addAccountMoney
@@ -78,18 +86,18 @@ exports['qb-management']:AddGangMoney=> exports['Renewed-Banking']:addAccountMon
 exports['qb-management']:RemoveGangMoney=> exports['Renewed-Banking']:removeAccountMoney
 ```
 ## Society Bank Access
-QBCore:
-Checks if the grade has the isboss variable in their job table.
-ESX:
-Checks if the grade name is "boss"
+*QBCore:* Checks if the grade has the isboss variable in their job table.
+*ESX:* Checks if the grade name is "boss"
 
  ## Change Logs
 <details>
  <summary>View History</summary>
 
- V2.1.0
+ V3.0.0
  ```
- New Database Schema (No SQL Required)
+ New Database Schema
+ ox_lib menu ditch Fully UI based
+ bunch of misc fixes.
  ```
 
  V2.0.2

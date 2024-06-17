@@ -1,7 +1,6 @@
 lib.locale()
 Config = {
     framework = 'qb', -- qb or esx 
-    target = 'ox', -- "qb" or "ox" are the only supported target systems
     progressbar = 'circle', -- circle or rectangle (Anything other than circle will default to rectangle)
     currency ='USD', -- USD, EUR, GBP ect..... Some will work some wont...
     purgeTransactions = false, -- Deleted old transactions greater than 6 months

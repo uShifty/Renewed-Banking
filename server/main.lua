@@ -82,7 +82,7 @@ lib.callback.register('renewed-banking:server:getPlayerData', function(source)
     return PlayerData
 end)
 
-lib.callback.register('renewed-banking:server:initalizeBanking', function(source)
+lib.callback.register('renewed-banking:server:initializeBanking', function(source)
     local charID = Framework.getCharId(source)
     playerAccess[source][1].cash = Framework.getMoney(source, 'cash')
     playerAccess[source][1].amount = Framework.getMoney(source, 'bank')
@@ -197,7 +197,7 @@ lib.callback.register('Renewed-Banking:server:withdraw', function(source, data)
     local secondAccount = left.id == data.fromAccount and source or data.fromAccount
     local right = secondAccount ~= source and Accounts(secondAccount) or left
     if secondAccount ~= source and right == left then return end
-    
+
     data.comment = data.comment and data.comment ~= "" and Utils.sanitizeMessage(data.comment) or locale("comp_transaction", right.name, "withdrawed", amount)
     local success = Accounts.removeMoney(secondAccount, amount, data.comment)
     if not success then Utils.sendNotif(source, locale("not_enough_money")) return end
