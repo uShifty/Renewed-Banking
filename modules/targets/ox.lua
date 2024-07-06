@@ -1,7 +1,7 @@
-local peds
+local Peds
 return {
-    AddHook = function(Peds)
-        peds = Peds
+    AddHook = function(peds)
+        Peds = peds
         local targetOpts ={{
             name = 'renewed_banking_openui',
             event = 'Renewed-Banking:client:openBankUI',
@@ -12,12 +12,12 @@ return {
                 return distance < 4.5
             end
         }}
-        exports.ox_target:addLocalEntity(peds, targetOpts)
+        exports.ox_target:addLocalEntity(Peds, targetOpts)
         targetOpts[1].atm = true
         exports.ox_target:addModel(Config.atms, targetOpts)
     end,
     RemoveHook = function()
         exports.ox_target:removeModel(Config.atms, {'renewed_banking_openui'})
-        exports.ox_target:removeEntity(peds, {'renewed_banking_openui'})
+        exports.ox_target:removeEntity(Peds, {'renewed_banking_openui'})
     end
 }
